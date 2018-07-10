@@ -20,6 +20,7 @@
   "homepage": "https://github.com/arielfr/help-in-need-bot#readme",
   "dependencies": {
     "download": "^7.0.0",
+    "exif": "^0.6.0",
     "express": "^4.16.3",
     "fb": "^2.0.0",
     "winston-this": "^1.0.3"
