@@ -1,0 +1,27 @@
+{
+  "name": "help-in-need-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "start-dev": "NODE_ENV=development node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arielfr/help-in-need-bot.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arielfr/help-in-need-bot/issues"
+  },
+  "homepage": "https://github.com/arielfr/help-in-need-bot#readme",
+  "dependencies": {
+    "download": "^7.0.0",
+    "express": "^4.16.3",
+    "fb": "^2.0.0",
+    "winston-this": "^1.0.3"
+  }
+}
