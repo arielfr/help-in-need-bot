@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/arielfr/help-in-need-bot#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^1.30.0",
+    "dms2dec": "^1.1.0",
     "download": "^7.0.0",
     "exif": "^0.6.0",
     "express": "^4.16.3",
