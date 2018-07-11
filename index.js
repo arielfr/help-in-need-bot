@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 app.use(require('./routes/ping'));
 app.use(require('./routes/public'));
-app.use(require('./routes/webhook'));
+// app.use(require('./routes/webhook'));
 
 app.use((err, req, res, next) => {
   res.status(500).send('Oops, an error ocurred...');

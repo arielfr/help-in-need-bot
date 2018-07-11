@@ -1,7 +1,7 @@
 const logger = require('winston-this')('public');
 const express = require('express');
 const router = express.Router();
-const files = require('../utils/files');
+const files = require('../utils/File');
 const path = require('path');
 
 router.get('/policy', (req, res, next) => {
