@@ -54,7 +54,7 @@ class FilesUtil {
     return new Promise((resolve, reject) => {
       this.readToBuffer(location).then(image => {
         ExifImage(image, (err, response) => {
-          if (err) reject(err);
+          if (err) return reject(err);
 
           resolve(response);
         });

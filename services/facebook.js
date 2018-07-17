@@ -245,5 +245,42 @@ module.exports = {
         resolve(JSON.parse(body).attachment_id);
       });
     })
-  }
+  },
+  /**
+   * Quick reply asking for location
+   * @param senderId
+   * @param message
+   * @returns {Promise<any>}
+   */
+  quickReplyLocation: (senderId, message) => {
+    return new Promise((resolve, reject) => {
+      if (isProduction) {
+        fb.api('/me/messages', 'POST', {
+          recipient: {
+            id: senderId
+          },
+          message: {
+            text: message,
+            quick_replies: [
+              {
+                content_type: 'location',
+              }
+            ]
+          },
+        }, (res) => {
+          if (!res || res.error) {
+            logger.error(`An error ocurr on sendMessage: ${res.error.message}`);
+            reject(res.error);
+            return;
+          }
+
+          logger.info(`Message sent to user: ${senderId}`);
+          resolve(true);
+        });
+      } else {
+        logger.info(message);
+        resolve(true);
+      }
+    });
+  },
 };
