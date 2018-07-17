@@ -2,7 +2,7 @@ const config = require('config');
 const logger = require('winston-this')('facebook');
 const fb = require('fb');
 const request = require('request');
-const files = require('../utils/files');
+const FileUtil = require('../utils/File');
 const isProduction = (process.env.NODE_ENV === 'production');
 
 fb.setAccessToken(config.get('token'));
@@ -116,6 +116,40 @@ module.exports = {
     }
   },
   /**
+   * Send Buttons Template
+   * @param senderId
+   * @param text
+   * @param buttons
+   */
+  sendButtonTemplate: (senderId, text, buttons) => {
+    if (isProduction) {
+      fb.api('/me/messages', 'POST', {
+        recipient: {
+          id: senderId
+        },
+        message: {
+          attachment: {
+            type: 'template',
+            payload: {
+              template_type: 'button',
+              text: text,
+              buttons: buttons,
+            }
+          }
+        },
+      }, (res) => {
+        if (!res || res.error) {
+          logger.error(`An error ocurr on sendAction: ${res.error.message}`);
+          return;
+        }
+
+        logger.info(`Reaction sent to user: ${senderId}`);
+      });
+    } else {
+      logger.info(items);
+    }
+  },
+  /**
    * Send generic template
    * @param senderId
    * @param elements
@@ -144,7 +178,7 @@ module.exports = {
         logger.info(`Reaction sent to user: ${senderId}`);
       });
     } else {
-      logger.info(items);
+      logger.info(JSON.stringify(elements));
     }
   },
   /**
@@ -196,7 +230,7 @@ module.exports = {
             }
           }
         }),
-        filedata: files.createReadStream(attachmentPath)
+        filedata: FileUtil.createReadStream(attachmentPath)
       };
 
       request.post({

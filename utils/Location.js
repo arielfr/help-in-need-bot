@@ -10,10 +10,10 @@ class LocationUtil {
     const gps = exif.gps;
 
     return {
-      latitude: gps.GPSLatitude,
-      latitudeRef: gps.GPSLatitudeRef,
-      longitude: gps.GPSLongitude,
-      longitudeRef: gps.GPSLongitudeRef,
+      lat: gps.GPSLatitude,
+      latRef: gps.GPSLatitudeRef,
+      long: gps.GPSLongitude,
+      longRef: gps.GPSLongitudeRef,
     };
   }
 
@@ -28,8 +28,8 @@ class LocationUtil {
     const dec = dms2dec(gps.GPSLatitude, gps.GPSLatitudeRef, gps.GPSLongitude, gps.GPSLongitudeRef);
 
     return {
-      latitude: dec[0],
-      longitude: dec[1],
+      lat: dec[0],
+      long: dec[1],
     };
   }
 }

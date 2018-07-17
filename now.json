@@ -1,0 +1,7 @@
+{
+  "name": "help-in-need",
+  "alias": "help-in-need",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
