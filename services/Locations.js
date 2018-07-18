@@ -79,9 +79,6 @@ class Locations {
 
       // This means that the person is already reported
       if (this.isInsideRadius(lat, long, currLocation.lat, currLocation.long, this.searchRadius)) {
-        // Give more priority to that person
-        currLocation.priority = currLocation.priority + 1;
-
         // Add near location
         if (nearLocations.length < 5) {
           nearLocations.push({
@@ -95,7 +92,7 @@ class Locations {
       }
     }
 
-    nearLocations.sort((curr, next) => curr.priority - next.priority);
+    nearLocations.sort((curr, next) => next.priority - curr.priority);
 
     return nearLocations;
   }
