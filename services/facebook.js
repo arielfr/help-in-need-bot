@@ -283,4 +283,42 @@ module.exports = {
       }
     });
   },
+  /**
+   * Quick reply button with text
+   * @param senderId
+   * @param message
+   * @param elements
+   * @returns {Promise<any>}
+   */
+  quickReplyTextButton: (senderId, message, elements = []) => {
+    return new Promise((resolve, reject) => {
+      if (isProduction) {
+        fb.api('/me/messages', 'POST', {
+          recipient: {
+            id: senderId
+          },
+          message: {
+            text: message,
+            quick_replies: elements.map(el => ({
+              content_type: 'text',
+              title: el.title,
+              payload: el.payload,
+            })),
+          },
+        }, (res) => {
+          if (!res || res.error) {
+            logger.error(`An error ocurr on sendMessage: ${res.error.message}`);
+            reject(res.error);
+            return;
+          }
+
+          logger.info(`Message sent to user: ${senderId}`);
+          resolve(true);
+        });
+      } else {
+        logger.info(message);
+        resolve(true);
+      }
+    });
+  },
 };

@@ -55,26 +55,44 @@ router.post('/webhook', (req, res) => {
 
         logger.info(JSON.stringify(webhook_event.message));
 
-        if (webhook_event.message.text) {
+        if (webhook_event.message.quick_reply) {
+          const quickReply = webhook_event.message.quick_reply;
+          const location = Locations.getUserLocation(senderId);
+
+          if (quickReply.payload === 'REPORT') {
+            Locations.addLocation({
+              lat: location.lat,
+              long: location.long,
+            });
+
+            facebook.sendMessage(senderId, `Thank you! Your report have been saved.`);
+          } else if (quickReply.payload === 'HELP') {
+            const locations = Locations.getNearLocations({
+              lat: location.lat,
+              long: location.long,
+              priority: location.priority,
+            });
+
+            let locationsMessage = 'These are the locations near you:';
+
+            locations.forEach(l => {
+              locationsMessage = locationsMessage.concat(`\n\nPriority: ${l.priority}\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
+            });
+
+            facebook.sendMessage(senderId, locationsMessage);
+          }
+
+          // Remove user locations
+          Locations.removeUserLocation(senderId);
+        } else if (webhook_event.message.text) {
           const text = webhook_event.message.text;
           const splitText = text.split(' ');
           const command = splitText[0].toLowerCase();
 
+          // Welcome message
           facebook.sendMessage(senderId, `Hi, we are Help In Need.\n\nThis bot will allow you to empower your community by helping them. If you see a person in street situation you can report it. Then, someone can go and help them.`);
 
-          /*
-          facebook.sendGeneric(senderId, [
-            {
-              title: 'Report a person in need',
-              subtitle: 'Send us the location where the person is',
-            },
-            {
-              title: 'Help a person in need',
-              subtitle: 'Send us your location and we will send you the locations of the persons near you (1km radius)',
-            },
-          ]);
-          */
-
+          // Location Quick Reply
           facebook.quickReplyLocation(senderId, 'Send us your location');
         } else if (webhook_event.message.attachments) {
           const attachment = webhook_event.message.attachments[0];
@@ -82,11 +100,18 @@ router.post('/webhook', (req, res) => {
           if (attachment.type === 'location') {
             const location = attachment.payload;
 
-            // Add location sent
-            Locations.addLocation({
-              lat: location.coordinates.lat,
-              long: location.coordinates.long,
-            });
+            Locations.addUserLocation(senderId, location.coordinates.lat, location.coordinates.long);
+
+            facebook.quickReplyTextButton(senderId, 'Do you want to:', [
+              {
+                title: 'Report Person',
+                payload: 'REPORT',
+              },
+              {
+                title: 'Help in Need',
+                payload: 'HELP',
+              },
+            ]);
           }
         }
       } else if (webhook_event.postback) {

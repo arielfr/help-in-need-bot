@@ -3,8 +3,32 @@ const geolib = require('geolib');
 
 class Locations {
   constructor() {
+    this.usersLocations = {};
     this.locations = [];
     this.minRadius = 100;
+    this.searchRadius = 1000;
+  }
+
+  addUserLocation(userId, lat, long) {
+    this.usersLocations[userId] = {
+      lat,
+      long,
+    }
+  }
+
+  getUserLocation(userId) {
+    return {
+      lat: this.usersLocations[userId].lat,
+      long: this.usersLocations[userId].long
+    };
+  }
+
+  removeUserLocation() {
+    delete this.usersLocations[userId];
+  }
+
+  hasUserLocation(userId) {
+    return !!this.usersLocations[userId];
   }
 
   isAlreadyReported({ lat, long }) {
@@ -46,6 +70,35 @@ class Locations {
       logger.info(`The person was already reported inside a min radius of ${this.minRadius}`);
     }
   };
+
+  getNearLocations({ lat, long }) {
+    let nearLocations = [];
+
+    for (let i = 0; i < this.locations.length; i++) {
+      const currLocation = this.locations[0];
+
+      // This means that the person is already reported
+      if (this.isInsideRadius(lat, long, currLocation.lat, currLocation.long, this.searchRadius)) {
+        // Give more priority to that person
+        currLocation.priority = currLocation.priority + 1;
+
+        // Add near location
+        if (nearLocations.length < 5) {
+          nearLocations.push({
+            lat: currLocation.lat,
+            long: currLocation.long,
+            priority: currLocation.priority,
+          });
+        } else {
+          break;
+        }
+      }
+    }
+
+    nearLocations.sort((curr, next) => curr.priority - next.priority);
+
+    return nearLocations;
+  }
 
   /**
    * Check if position is inside a radius from the center position
