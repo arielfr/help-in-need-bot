@@ -65,7 +65,7 @@ router.post('/webhook', (req, res) => {
               long: location.long,
             });
 
-            facebook.sendMessage(senderId, `Thank you! Your report have been saved.`);
+            facebook.sendMessage(senderId, `Thank you for taking the time to help persons in need. Your location has been reported.`);
           } else if (quickReply.payload === 'HELP') {
             const locations = Locations.getNearLocations({
               lat: location.lat,
@@ -73,7 +73,7 @@ router.post('/webhook', (req, res) => {
               priority: location.priority,
             });
 
-            let locationsMessage = 'These are the locations near you:';
+            let locationsMessage = 'You community reported this locations near your location:';
 
             locations.forEach(l => {
               locationsMessage = locationsMessage.concat(`\n\nPriority: ${l.priority}\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
@@ -90,10 +90,13 @@ router.post('/webhook', (req, res) => {
           const command = splitText[0].toLowerCase();
 
           // Welcome message
-          facebook.sendMessage(senderId, `Hi, we are Help In Need.\n\nThis bot will allow you to empower your community by helping them. If you see a person in street situation you can report it. Then, someone can go and help them.`);
+          facebook.sendMessage(senderId, `Welcome to "Help In Need".\n\nThis bot will allow you to empower your community by helping them. How?\n\n- First, share your location\n\nThen choose between reporting a person in need or helping someone near this location`);
 
-          // Location Quick Reply
-          facebook.quickReplyLocation(senderId, 'Send us your location');
+          // Wait for previous message comes first
+          setTimeout(() => {
+            // Location Quick Reply
+            facebook.quickReplyLocation(senderId, 'Send current location');
+          }, 200);
         } else if (webhook_event.message.attachments) {
           const attachment = webhook_event.message.attachments[0];
 
