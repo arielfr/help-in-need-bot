@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
           name: 'Ariel Rey',
           github: 'https://github.com/arielfr',
         },
+        {
+          name: 'Horacio Lopez',
+          github: 'https://github.com/hdlopez',
+        },
       ]
     }
   })

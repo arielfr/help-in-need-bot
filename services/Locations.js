@@ -3,14 +3,15 @@ const geolib = require('geolib');
 
 class Locations {
   constructor() {
-    this.usersLocations = {};
+    this.lastAction = {};
     this.locations = [];
-    this.minRadius = 100;
+    this.minRadius = 50;
     this.searchRadius = 1000;
   }
 
+  /*
   addUserLocation(userId, lat, long) {
-    this.usersLocations[userId] = {
+    this.lastAction[userId] = {
       lat,
       long,
     }
@@ -19,8 +20,8 @@ class Locations {
   getUserLocation(userId) {
     if (this.hasUserLocation(userId)) {
       return {
-        lat: this.usersLocations[userId].lat,
-        long: this.usersLocations[userId].long
+        lat: this.lastAction[userId].lat,
+        long: this.lastAction[userId].long
       };
     } else {
       return {};
@@ -28,12 +29,13 @@ class Locations {
   }
 
   removeUserLocation(userId) {
-    delete this.usersLocations[userId];
+    delete this.lastAction[userId];
   }
 
   hasUserLocation(userId) {
-    return !!this.usersLocations[userId];
+    return !!this.lastAction[userId];
   }
+  */
 
   isAlreadyReported({ lat, long }) {
     let isReported = false;
@@ -59,8 +61,6 @@ class Locations {
    * @param long
    */
   addLocation({ lat, long }) {
-    // const officePosition = new Position(-34.5277426, -58.4687091);
-
     if (!this.isAlreadyReported({ lat, long })) {
       logger.info(`Adding the location: Lat = ${lat} / Long = ${long}`);
 
@@ -121,27 +121,6 @@ class Locations {
         longitude: centerLongitude,
       },
       distance
-    );
-  }
-
-  /**
-   * Returns the distance from the origin point to the destination point
-   * @param originLatitude
-   * @param originLongitude
-   * @param destinationLatitude
-   * @param destinationLongitude
-   * @returns {number}
-   */
-  getDistanceFromPoint(originLatitude, originLongitude, destinationLatitude, destinationLongitude) {
-    return geolib.getDistance(
-      {
-        latitude: originLatitude,
-        longitude: originLongitude,
-      },
-      {
-        latitude: destinationLatitude,
-        longitude: destinationLongitude,
-      },
     );
   }
 }
