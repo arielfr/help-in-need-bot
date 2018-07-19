@@ -59,27 +59,35 @@ router.post('/webhook', (req, res) => {
           const quickReply = webhook_event.message.quick_reply;
           const location = Locations.getUserLocation(senderId);
 
-          if (quickReply.payload === 'REPORT') {
-            Locations.addLocation({
-              lat: location.lat,
-              long: location.long,
-            });
+          if (Object.keys(location).length > 0) {
+            if (quickReply.payload === 'REPORT') {
+              Locations.addLocation({
+                lat: location.lat,
+                long: location.long,
+              });
 
-            facebook.sendMessage(senderId, `Thank you for taking the time to help persons in need. Your location has been reported.`);
-          } else if (quickReply.payload === 'HELP') {
-            const locations = Locations.getNearLocations({
-              lat: location.lat,
-              long: location.long,
-              priority: location.priority,
-            });
+              facebook.sendMessage(senderId, `Thank you for taking the time to help persons in need. Your location has been reported.`);
+            } else if (quickReply.payload === 'HELP') {
+              const locations = Locations.getNearLocations({
+                lat: location.lat,
+                long: location.long,
+                priority: location.priority,
+              });
 
-            let locationsMessage = 'You community reported this locations near your location:';
+              if (locations.length > 0) {
+                let locationsMessage = 'You community reported this locations near your location:';
 
-            locations.forEach(l => {
-              locationsMessage = locationsMessage.concat(`\n\nPriority: ${l.priority}\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
-            });
+                locations.forEach(l => {
+                  locationsMessage = locationsMessage.concat(`\n\nPriority: ${l.priority}\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
+                });
 
-            facebook.sendMessage(senderId, locationsMessage);
+                facebook.sendMessage(senderId, locationsMessage);
+              } else {
+                facebook.sendMessage(senderId, `There are no persons in need around you. If you see someone report it`);
+              }
+            }
+          } else {
+            facebook.sendMessage(senderId, `An error ocurr. Please say "Hello" again to restart the process`);
           }
 
           // Remove user locations

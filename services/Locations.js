@@ -17,13 +17,17 @@ class Locations {
   }
 
   getUserLocation(userId) {
-    return {
-      lat: this.usersLocations[userId].lat,
-      long: this.usersLocations[userId].long
-    };
+    if (this.hasUserLocation(userId)) {
+      return {
+        lat: this.usersLocations[userId].lat,
+        long: this.usersLocations[userId].long
+      };
+    } else {
+      return {};
+    }
   }
 
-  removeUserLocation() {
+  removeUserLocation(userId) {
     delete this.usersLocations[userId];
   }
 
