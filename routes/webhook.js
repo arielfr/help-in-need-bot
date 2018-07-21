@@ -7,12 +7,12 @@ const Locations = require('../services/Locations');
 const Actions = require('../services/Actions');
 const Users = require('../services/Users');
 
-const WELCOME_MESSAGE_NEW = `Welcome to "Help In Need".\n\nThis bot will allow you to empower your community by helping each other. You may wondering, how? Pretty simple!`;
-const WELCOME_MESSAGE_OLD = `We really appreciate your help. Would you like to help people in need around you?`;
+// const WELCOME_MESSAGE_NEW = `Welcome to "Help In Need".\n\nThis bot will allow you to empower your community by helping each other. You may wondering, how? Pretty simple!`;
+// const WELCOME_MESSAGE_OLD = `We really appreciate your help. Would you like to help people in need around you?`;
 const BUTTON_REPORT = `By sharing your location, you will be reporting a person in need close to you.`;
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
-const CHOOSE_TEXT = 'You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
-const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. If you wan't to report again or help someone in need, talk to me again`;
+const CHOOSE_TEXT = 'Hi there! You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
+const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. Would you love to continue helping? Talk to me again!`;
 const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you`;
 const CONGRATS_HELP = `Your community reported this locations near your location:`;
 const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
@@ -86,13 +86,6 @@ router.post('/webhook', (req, res) => {
           }, 200);
         } else if (webhook_event.message.text) {
           logger.info(`Message receive from user [${senderId}]: ${webhook_event.message.text}`);
-
-          // Welcome message
-          if (Users.alreadyInteracted(senderId)) {
-            facebook.sendMessage(senderId, WELCOME_MESSAGE_OLD);
-          } else {
-            // facebook.sendMessage(senderId, WELCOME_MESSAGE_NEW);
-          }
 
           // Wait for previous message comes first
           setTimeout(() => {
