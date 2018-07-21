@@ -12,9 +12,10 @@ const WELCOME_MESSAGE_OLD = `We really appreciate your help. Would you like to h
 const BUTTON_REPORT = `By sharing your location, you will be reporting a person in need close to you.`;
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
 const CHOOSE_TEXT = 'You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
-const CONGRATS_REPORT = `Thank you for taking the time to help someone in need.`;
+const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. If you wan't to report again or help someone in need, talk to me again`;
 const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you`;
 const CONGRATS_HELP = `Your community reported this locations near your location:`;
+const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
 
 /**
  * Verification Token Endpoint
@@ -139,7 +140,7 @@ router.post('/webhook', (req, res) => {
                   locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
                 });
 
-                facebook.sendMessage(senderId, locationsMessage);
+                facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
               } else {
                 facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
               }
