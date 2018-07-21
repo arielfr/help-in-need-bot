@@ -90,7 +90,7 @@ router.post('/webhook', (req, res) => {
           logger.info(`Message receive from user [${senderId}]: ${webhook_event.message.text}`);
 
           // Welcome message
-          if (!Users.alreadyInteracted(senderId)) {
+          if (Users.alreadyInteracted(senderId)) {
             facebook.sendMessage(senderId, WELCOME_MESSAGE_OLD);
           } else {
             // facebook.sendMessage(senderId, WELCOME_MESSAGE_NEW);
