@@ -48,7 +48,7 @@ module.exports = {
             return;
           }
 
-          logger.info(`Message sent to user: ${senderId}`);
+          logger.info(`Message sent to user: ${senderId}: ${message}`);
           resolve(true);
         });
       } else {

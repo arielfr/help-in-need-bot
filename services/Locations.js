@@ -18,7 +18,7 @@ class Locations {
     let isReported = false;
 
     for (let i = 0; i < this.locations.length; i++) {
-      const currLocation = this.locations[0];
+      const currLocation = this.locations[i];
 
       // This means that the person is already reported
       if (this.isInsideRadius(lat, long, currLocation.lat, currLocation.long, this.minRadius)) {
@@ -62,7 +62,7 @@ class Locations {
     let nearLocations = [];
 
     for (let i = 0; i < this.locations.length; i++) {
-      const currLocation = this.locations[0];
+      const currLocation = this.locations[i];
 
       // This means that the person is already reported
       if (this.isInsideRadius(lat, long, currLocation.lat, currLocation.long, this.searchRadius)) {

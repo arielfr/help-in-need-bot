@@ -13,7 +13,7 @@ const BUTTON_REPORT = `By sharing your location, you will be reporting a person 
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
 const CHOOSE_TEXT = 'Hi there! You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
 const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. Would you love to continue helping? Talk to me again!`;
-const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you`;
+const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you. Would you love to continue helping? Talk to me again!`;
 const CONGRATS_HELP = `Your community reported this locations near your location:`;
 const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
 
