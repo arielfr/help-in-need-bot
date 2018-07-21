@@ -2,27 +2,46 @@ const logger = require('winston-this')('actions-service');
 
 class Actions {
   constructor() {
-    this.lastAction = {};
+    this.actions = {};
   }
 
-  saveAction(userId, action) {
-    this.lastAction[userId] = action;
+  /**
+   * Save user action
+   * @param userId
+   * @param action
+   */
+  save(userId, action) {
+    this.actions[userId] = action;
   }
 
-  getUserAction(userId) {
-    if (this.hasUserLocation(userId)) {
-      return this.lastAction[userId];
+  /**
+   * Get last user action
+   * @param userId
+   * @returns {*}
+   */
+  get(userId) {
+    if (this.hasAny(userId)) {
+      return this.actions[userId];
     } else {
       return false;
     }
   }
 
-  hasUserLocation(userId) {
-    return !!this.lastAction[userId];
+  /**
+   * Has any user action
+   * @param userId
+   * @returns {boolean}
+   */
+  hasAny(userId) {
+    return !!this.actions[userId];
   }
 
-  removeUserAction(userId) {
-    delete this.lastAction[userId];
+  /**
+   * Remove user action
+   * @param userId
+   */
+  remove(userId) {
+    delete this.actions[userId];
   }
 }
 

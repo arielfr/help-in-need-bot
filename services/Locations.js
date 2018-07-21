@@ -3,40 +3,17 @@ const geolib = require('geolib');
 
 class Locations {
   constructor() {
-    this.lastAction = {};
     this.locations = [];
     this.minRadius = 50;
     this.searchRadius = 1000;
   }
 
-  /*
-  addUserLocation(userId, lat, long) {
-    this.lastAction[userId] = {
-      lat,
-      long,
-    }
-  }
-
-  getUserLocation(userId) {
-    if (this.hasUserLocation(userId)) {
-      return {
-        lat: this.lastAction[userId].lat,
-        long: this.lastAction[userId].long
-      };
-    } else {
-      return {};
-    }
-  }
-
-  removeUserLocation(userId) {
-    delete this.lastAction[userId];
-  }
-
-  hasUserLocation(userId) {
-    return !!this.lastAction[userId];
-  }
-  */
-
+  /**
+   * Check if the location was already reported
+   * @param lat
+   * @param long
+   * @returns {boolean}
+   */
   isAlreadyReported({ lat, long }) {
     let isReported = false;
 
@@ -75,6 +52,12 @@ class Locations {
     }
   };
 
+  /**
+   * Retrieve all the near locations
+   * @param lat
+   * @param long
+   * @returns {Array}
+   */
   getNearLocations({ lat, long }) {
     let nearLocations = [];
 

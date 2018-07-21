@@ -5,6 +5,16 @@ const router = express.Router();
 const facebook = require('../services/facebook');
 const Locations = require('../services/Locations');
 const Actions = require('../services/Actions');
+const Users = require('../services/Users');
+
+const WELCOME_MESSAGE_NEW = `Welcome to "Help In Need".\n\nThis bot will allow you to empower your community by helping each other. You may wondering, how? Pretty simple!`;
+const WELCOME_MESSAGE_OLD = `We really appreciate your help. Would you like to help people in need around you?`;
+const BUTTON_REPORT = `By sharing your location, you will be reporting a person in need close to you.`;
+const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
+const CHOOSE_TEXT = 'You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
+const CONGRATS_REPORT = `Thank you for taking the time to help someone in need.`;
+const CONGRATS_HELP_NO_LOCATIONS = `There are no persons in need around you. If you see someone report it`;
+const CONGRATS_HELP = `Your community reported this locations near your location:`;
 
 /**
  * Verification Token Endpoint
@@ -49,36 +59,46 @@ router.post('/webhook', (req, res) => {
       const webhook_event = entry.messaging[0];
       const senderId = webhook_event.sender.id;
 
+      // Save the user interacted
+      Users.save(senderId);
+
       // Check if it is a message
       if (webhook_event.message) {
         // Mark message as seen
         facebook.sendAction(senderId, facebook.available_actions.MARK_AS_READ);
 
+        // Check if message comes from a quick reply
         if (webhook_event.message.quick_reply) {
           const quickReply = webhook_event.message.quick_reply;
           let message = '';
 
+          // Set the message depending on the quick reply
           if (quickReply.payload === 'REPORT') {
-            message = 'By sharing your location, you will reporting a person in need near you or exactly where you are.';
+            message = BUTTON_REPORT;
           } else if (quickReply.payload === 'HELP') {
-            message = 'By sharing your location, you will receive a list of locations near your.';
+            message = BUTTON_HELP;
           }
 
-          facebook.sendMessage(senderId, message);
-
           // Save user last action
-          Actions.saveAction(senderId, quickReply.payload);
+          Actions.save(senderId, quickReply.payload);
 
+          // Send the Quick Reply for location
           setTimeout(() => {
-            facebook.quickReplyLocation(senderId, 'Send location');
+            facebook.quickReplyLocation(senderId, message);
           }, 200);
         } else if (webhook_event.message.text) {
+          logger.info(`Message receive from user [${senderId}]: ${webhook_event.message.text}`);
+
           // Welcome message
-          facebook.sendMessage(senderId, `Welcome to "Help In Need".\n\nThis bot will allow you to empower your community by helping each other. You may wondering, how? Pretty simple!`);
+          if (!Users.alreadyInteracted(senderId)) {
+            facebook.sendMessage(senderId, WELCOME_MESSAGE_OLD);
+          } else {
+            // facebook.sendMessage(senderId, WELCOME_MESSAGE_NEW);
+          }
 
           // Wait for previous message comes first
           setTimeout(() => {
-            facebook.quickReplyTextButton(senderId, 'You can choose if you want to report the location of someone in need or just know where are the people in need around you.', [
+            facebook.quickReplyTextButton(senderId, CHOOSE_TEXT, [
               {
                 title: 'Report',
                 payload: 'REPORT',
@@ -92,17 +112,20 @@ router.post('/webhook', (req, res) => {
         } else if (webhook_event.message.attachments) {
           const attachment = webhook_event.message.attachments[0];
 
+          // Check if the attachment is a locatiom
           if (attachment.type === 'location') {
             const location = attachment.payload;
 
-            if (Actions.getUserAction(senderId) === 'REPORT') {
+            // If it is a report we save the location reported
+            if (Actions.get(senderId) === 'REPORT') {
               Locations.addLocation({
                 lat: location.coordinates.lat,
                 long: location.coordinates.long,
               });
 
-              facebook.sendMessage(senderId, `Thank you for taking the time to help persons in need. Your location has been reported.`);
-            } else if (Actions.getUserAction(senderId) === 'HELP') {
+              facebook.sendMessage(senderId, CONGRATS_REPORT);
+              // If it is a help we retrieve the locations
+            } else if (Actions.get(senderId) === 'HELP') {
               const locations = Locations.getNearLocations({
                 lat: location.coordinates.lat,
                 long: location.coordinates.long,
@@ -110,7 +133,7 @@ router.post('/webhook', (req, res) => {
               });
 
               if (locations.length > 0) {
-                let locationsMessage = 'Your community reported this locations near your location:';
+                let locationsMessage = CONGRATS_HELP;
 
                 locations.forEach(l => {
                   locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
@@ -118,11 +141,11 @@ router.post('/webhook', (req, res) => {
 
                 facebook.sendMessage(senderId, locationsMessage);
               } else {
-                facebook.sendMessage(senderId, `There are no persons in need around you. If you see someone report it`);
+                facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
               }
             }
 
-            Actions.removeUserAction(senderId);
+            Actions.remove(senderId);
           }
         }
       } else if (webhook_event.postback) {
