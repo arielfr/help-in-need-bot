@@ -13,7 +13,7 @@ const BUTTON_REPORT = `By sharing your location, you will be reporting a person 
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
 const CHOOSE_TEXT = 'You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
 const CONGRATS_REPORT = `Thank you for taking the time to help someone in need.`;
-const CONGRATS_HELP_NO_LOCATIONS = `There are no persons in need around you. If you see someone report it`;
+const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you`;
 const CONGRATS_HELP = `Your community reported this locations near your location:`;
 
 /**
@@ -58,9 +58,6 @@ router.post('/webhook', (req, res) => {
       // will only ever contain one message, so we get index 0
       const webhook_event = entry.messaging[0];
       const senderId = webhook_event.sender.id;
-
-      // Save the user interacted
-      Users.save(senderId);
 
       // Check if it is a message
       if (webhook_event.message) {
@@ -109,6 +106,9 @@ router.post('/webhook', (req, res) => {
               },
             ]);
           }, 200);
+
+          // Save the user interacted
+          Users.save(senderId);
         } else if (webhook_event.message.attachments) {
           const attachment = webhook_event.message.attachments[0];
 
