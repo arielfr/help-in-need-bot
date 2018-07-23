@@ -42,7 +42,7 @@ In case you are close to the person just share your current location, in other c
 Ready, that's easy. Now other people or organizations can find and assist them!
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/43108758-d12ed4d0-8eb9-11e8-8d15-0cb5415c85a7.JPG" width="350">
 </kbd>
 
 ### Help
@@ -57,7 +57,7 @@ This will make our `engine` of locations allow you to find someone close to you 
     <img src="https://user-images.githubusercontent.com/4379982/43108499-8536bf3a-8eb8-11e8-891a-b1c6010392c3.JPG" width="350">
 </kbd>
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43087419-3a36339a-8e76-11e8-8168-bb00949c84aa.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/43108759-d242a3ec-8eb9-11e8-8acd-012f2bf55d6d.JPG" width="350">
 </kbd>
 
 Now you can go help him!
