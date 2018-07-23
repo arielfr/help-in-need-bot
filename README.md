@@ -10,7 +10,7 @@ This project was made for the Community Challenge of [Facebook Developers Circle
 
 This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. How?
 
-![img-2325](https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG)
+<img src="https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG" width="350">
 
 ## How
 
@@ -19,36 +19,36 @@ This bot will bring help to people in street situations. If you see someone, all
 - Reporting sighting of someone in street situation
 - Help someone close to you
 
-![img-2327](https://user-images.githubusercontent.com/4379982/43087329-f7b5c544-8e75-11e8-86ef-241952ed5358.JPG)  
+<img src="https://user-images.githubusercontent.com/4379982/43087329-f7b5c544-8e75-11e8-86ef-241952ed5358.JPG" width="350">
 
 ### Report
 
 Once the options appear you will choose `Report`. Below you will see an option to share a location.
 
-![img-2329](https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG)
+<img src="https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG" width="350">
 
 In case you are seeing this person share your current location. If it was someone you saw while driving or you could not use your phone at that time, it reports the location where you were.
 
-![img-2330](https://user-images.githubusercontent.com/4379982/43087354-0febccee-8e76-11e8-85bf-814032ae530e.JPG)
+<img src="https://user-images.githubusercontent.com/4379982/43087354-0febccee-8e76-11e8-85bf-814032ae530e.JPG" width="350">
 
 Ready, that's easy. Now another person can help you.
 
-![img-2331](https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG)
+<img src="(https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
 
 ### Help
 
 Once the options appear you will choose `Help`. Below you will see an option to share a location.
 
-![img-2331](https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG)
+<img src="(https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
 
 This will make our `engine` of locations allow you to find someone close to you so you can help (5km radius). If our location engine finds someone who needs help close to you, it will give you the necessary links so you can help him.
 
-![img-2333](https://user-images.githubusercontent.com/4379982/43087390-2da98ec4-8e76-11e8-809c-7f0e00663d52.JPG)
-![img-2334](https://user-images.githubusercontent.com/4379982/43087419-3a36339a-8e76-11e8-8168-bb00949c84aa.JPG)
+<img src="(https://user-images.githubusercontent.com/4379982/43087390-2da98ec4-8e76-11e8-809c-7f0e00663d52.JPG" width="350">
+<img src="(https://user-images.githubusercontent.com/4379982/43087419-3a36339a-8e76-11e8-8168-bb00949c84aa.JPG" width="350">
 
 Now you can go help him!
 
-![img-2336](https://user-images.githubusercontent.com/4379982/43087424-3ba8046a-8e76-11e8-9171-544d6965a798.JPG)
+<img src="(https://user-images.githubusercontent.com/4379982/43087424-3ba8046a-8e76-11e8-9171-544d6965a798.JPG" width="350">
 
 ## Technical Spoilers
 
