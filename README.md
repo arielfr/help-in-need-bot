@@ -33,22 +33,22 @@ In case you are seeing this person share your current location. If it was someon
 
 Ready, that's easy. Now another person can help you.
 
-<img src="(https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
+<img src="https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
 
 ### Help
 
 Once the options appear you will choose `Help`. Below you will see an option to share a location.
 
-<img src="(https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
+<img src="https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
 
 This will make our `engine` of locations allow you to find someone close to you so you can help (5km radius). If our location engine finds someone who needs help close to you, it will give you the necessary links so you can help him.
 
-<img src="(https://user-images.githubusercontent.com/4379982/43087390-2da98ec4-8e76-11e8-809c-7f0e00663d52.JPG" width="350">
-<img src="(https://user-images.githubusercontent.com/4379982/43087419-3a36339a-8e76-11e8-8168-bb00949c84aa.JPG" width="350">
+<img src="https://user-images.githubusercontent.com/4379982/43087390-2da98ec4-8e76-11e8-809c-7f0e00663d52.JPG" width="350">
+<img src="https://user-images.githubusercontent.com/4379982/43087419-3a36339a-8e76-11e8-8168-bb00949c84aa.JPG" width="350">
 
 Now you can go help him!
 
-<img src="(https://user-images.githubusercontent.com/4379982/43087424-3ba8046a-8e76-11e8-9171-544d6965a798.JPG" width="350">
+<img src="https://user-images.githubusercontent.com/4379982/43087424-3ba8046a-8e76-11e8-9171-544d6965a798.JPG" width="350">
 
 ## Technical Spoilers
 
