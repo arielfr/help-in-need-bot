@@ -1,6 +1,9 @@
 const logger = require('winston-this')('locations-service');
 const geolib = require('geolib');
 
+/**
+ * This class is going to store the users locations
+ */
 class Locations {
   constructor() {
     this.locations = [];

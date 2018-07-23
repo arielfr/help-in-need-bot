@@ -1,5 +1,8 @@
 const logger = require('winston-this')('actions-service');
 
+/**
+ * This is the class that is going to be used to save the last actions taken from users
+ */
 class Actions {
   constructor() {
     this.actions = {};
@@ -11,6 +14,8 @@ class Actions {
    * @param action
    */
   save(userId, action) {
+    logger.debug(`Saving action [user-id=${userId}][action=${action}]`);
+
     this.actions[userId] = action;
   }
 
@@ -20,6 +25,8 @@ class Actions {
    * @returns {*}
    */
   get(userId) {
+    logger.debug(`Getting action [user-id=${userId}]`);
+
     if (this.hasAny(userId)) {
       return this.actions[userId];
     } else {
@@ -41,6 +48,8 @@ class Actions {
    * @param userId
    */
   remove(userId) {
+    logger.debug(`Removing action [user-id=${userId}]`);
+
     delete this.actions[userId];
   }
 }

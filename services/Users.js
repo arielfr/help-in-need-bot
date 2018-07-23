@@ -1,5 +1,8 @@
 const logger = require('winston-this')('users-service');
 
+/**
+ * This class is going to be saving the users interacting with the Bot
+ */
 class Users {
   constructor() {
     this.users = [];

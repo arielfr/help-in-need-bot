@@ -7,8 +7,6 @@ const Locations = require('../services/Locations');
 const Actions = require('../services/Actions');
 const Users = require('../services/Users');
 
-// const WELCOME_MESSAGE_NEW = `Welcome to "Help In Need".\n\nThis bot will allow you to empower your community by helping each other. You may wondering, how? Pretty simple!`;
-// const WELCOME_MESSAGE_OLD = `We really appreciate your help. Would you like to help people in need around you?`;
 const BUTTON_REPORT = `By sharing your location, you will be reporting a person in need close to you.`;
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
 const CHOOSE_TEXT = 'Hi there! You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
