@@ -10,7 +10,7 @@ This project was made for the Community Challenge of [Facebook Developers Circle
 
 This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. How?
 
-![img-2325](https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG)
+![img-2325](https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG){:height="100px" width="100px"}
 
 ## How
 
