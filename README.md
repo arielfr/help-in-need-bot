@@ -49,7 +49,9 @@ Ready, that's easy. Now other people or organizations can find and assist them!
 
 You can also ask for people's in need locations. When the options appear you will be able choose `Help`. 
 
-<img src="https://user-images.githubusercontent.com/4379982/43108470-5facca70-8eb8-11e8-99e1-20f3360b3cb2.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43108470-5facca70-8eb8-11e8-99e1-20f3360b3cb2.JPG" width="350">
+</kbd>
 
 This will make our `engine` of locations allow you to find someone close to you so you can help (5km radius). If our location engine finds someone who needs help close to you, it will give you the necessary links so you can help him.
 
