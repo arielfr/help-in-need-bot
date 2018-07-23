@@ -10,7 +10,9 @@ This project was made for the Community Challenge of [Facebook Developers Circle
 
 This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. 
 
-<img src="https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG" width="350">
+</kbd>
 
 ## How
 
@@ -19,21 +21,29 @@ This bot will allow you to empower your community by fostering help with each ot
 - Reporting someone's in need location
 - Help someone close to you
 
-<img src="https://user-images.githubusercontent.com/4379982/43087329-f7b5c544-8e75-11e8-86ef-241952ed5358.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43087329-f7b5c544-8e75-11e8-86ef-241952ed5358.JPG" width="350">
+</kbd>
 
 ### Report
 
 When the options appear you will be able choose `Report`. Once you choose this option, you will see a button (`Send Location`) to share someone's in need location.
 
-<img src="https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG" width="350">
+</kbd>
 
 In case you are close to the person just share your current location, in other case, you can search locaction by address or drag a waypoint on map.
 
-<img src="https://user-images.githubusercontent.com/4379982/43108497-7fbb427e-8eb8-11e8-94dc-7fd037c87442.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43108497-7fbb427e-8eb8-11e8-94dc-7fd037c87442.JPG" width="350">
+</kbd>
 
 Ready, that's easy. Now other people or organizations can find and assist them!
 
-<img src="https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
+</kbd>
 
 ### Help
 
@@ -43,12 +53,18 @@ You can also ask for people's in need locations. When the options appear you wil
 
 This will make our `engine` of locations allow you to find someone close to you so you can help (5km radius). If our location engine finds someone who needs help close to you, it will give you the necessary links so you can help him.
 
-<img src="https://user-images.githubusercontent.com/4379982/43108499-8536bf3a-8eb8-11e8-891a-b1c6010392c3.JPG" width="350">
-<img src="https://user-images.githubusercontent.com/4379982/43087419-3a36339a-8e76-11e8-8168-bb00949c84aa.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43108499-8536bf3a-8eb8-11e8-891a-b1c6010392c3.JPG" width="350">
+</kbd>
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43087419-3a36339a-8e76-11e8-8168-bb00949c84aa.JPG" width="350">
+</kbd>
 
 Now you can go help him!
 
-<img src="https://user-images.githubusercontent.com/4379982/43108503-8bead186-8eb8-11e8-9f31-059b9a1f0a4c.JPG" width="350">
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/43108503-8bead186-8eb8-11e8-9f31-059b9a1f0a4c.JPG" width="350">
+</kbd>
 
 ## Technical Spoilers
 
