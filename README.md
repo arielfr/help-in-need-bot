@@ -8,36 +8,36 @@ This project was made for the Community Challenge of [Facebook Developers Circle
 
 # Description
 
-This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. How?
+This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. 
 
 <img src="https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG" width="350">
 
 ## How
 
-This bot will bring help to people in street situations. If you see someone, all you have to do is open Facebook Messenger and search for "Help In Need". Once started a conversation you will be able to choose:
+This bot will allow you to empower your community by fostering help with each other. If you want to help someone, all you have to do is open Facebook Messenger and search for "Help In Need". Once you started a conversation you will be able to choose:
 
-- Reporting sighting of someone in street situation
+- Reporting someone's in need location
 - Help someone close to you
 
 <img src="https://user-images.githubusercontent.com/4379982/43087329-f7b5c544-8e75-11e8-86ef-241952ed5358.JPG" width="350">
 
 ### Report
 
-Once the options appear you will choose `Report`. Below you will see an option to share a location.
+When the options appear you will be able choose `Report`. Once you choose this option, you will see a button (`Send Location`) to share someone's in need location.
 
 <img src="https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG" width="350">
 
-In case you are seeing this person share your current location. If it was someone you saw while driving or you could not use your phone at that time, it reports the location where you were.
+In case you are close to the person just share your current location, in other case, you can search locaction by address or drag a waypoint on map.
 
 <img src="https://user-images.githubusercontent.com/4379982/43087354-0febccee-8e76-11e8-85bf-814032ae530e.JPG" width="350">
 
-Ready, that's easy. Now another person can help you.
+Ready, that's easy. Now other people or organizations can find and assist them!
 
 <img src="https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
 
 ### Help
 
-Once the options appear you will choose `Help`. Below you will see an option to share a location.
+You can also ask for people's in need locations. When the options appear you will be able choose `Help`. 
 
 <img src="https://user-images.githubusercontent.com/4379982/43087363-18a5ea90-8e76-11e8-988b-63db5946fcfd.JPG" width="350">
 
