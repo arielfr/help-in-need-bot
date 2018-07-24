@@ -27,7 +27,7 @@ This bot will allow you to empower your community by fostering help with each ot
 
 ### Report
 
-When the options appear you will be able choose `Report`. Once you choose this option, you will see a button (`Send Location`) to share someone's in need location.
+When the options appear you will be able to choose `Report`. Once you choose this option, you will see a button (`Send Location`) to share someone's in need location.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG" width="350">
@@ -47,13 +47,13 @@ Ready, that's easy. Now other people or organizations can find and assist them!
 
 ### Help
 
-You can also ask for people's in need locations. When the options appear you will be able choose `Help`. 
+You can also ask for people's in need locations. When the options appear you will be able to choose the option `Help`. 
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108470-5facca70-8eb8-11e8-99e1-20f3360b3cb2.JPG" width="350">
 </kbd>
 
-This will make our `engine` of locations allow you to find someone close to you so you can help (5km radius). If our location engine finds someone who needs help close to you, it will give you the necessary links so you can help him.
+So, using our database any person or organization could use these information to help someone in need.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108499-8536bf3a-8eb8-11e8-891a-b1c6010392c3.JPG" width="350">
@@ -62,7 +62,7 @@ This will make our `engine` of locations allow you to find someone close to you 
     <img src="https://user-images.githubusercontent.com/4379982/43108759-d242a3ec-8eb9-11e8-8acd-012f2bf55d6d.JPG" width="350">
 </kbd>
 
-Now you can go help him!
+We provide a waypoint on a map at google maps
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108503-8bead186-8eb8-11e8-9f31-059b9a1f0a4c.JPG" width="350">
