@@ -2,6 +2,9 @@
 
 Say hello to the first humanitarian **bot**... This bot will allow to empower, help and bring communities together.
 
+Warning
+> Can't get the permissions necessary for making it public, Facebook asks for a Business verification. This is for the Hackaton, not for comercial use.
+
 # Developers Circles
 
 This project was made for the Community Challenge of [Facebook Developers Circles](https://devcommunitychallenge.devpost.com)
