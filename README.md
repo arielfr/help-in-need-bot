@@ -9,6 +9,14 @@ Say hello to the first humanitarian **bot**... This bot will allow to empower, h
 
 This project was made for the Community Challenge of [Facebook Developers Circles](https://devcommunitychallenge.devpost.com)
 
+<img width="279" alt="captura de pantalla 2018-08-15 a la s 19 37 18" src="https://user-images.githubusercontent.com/4379982/44177165-03f11c00-a0c3-11e8-8dca-35d031f8c5c9.png">
+
+## Regional Winner
+
+On 08-15-18 we won the third place on Latin America:
+
+<img width="588" alt="captura de pantalla 2018-08-15 a la s 19 40 48" src="https://user-images.githubusercontent.com/4379982/44177196-208d5400-a0c3-11e8-84a1-4c01140643d5.png">
+
 # Description
 
 This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. 
