@@ -124,9 +124,19 @@ router.post('/webhook', (req, res) => {
 
             // If it is a report we save the location reported
             if (Actions.get(senderId) === 'REPORT') {
-              Locations.addLocation({
-                lat: location.coordinates.lat,
-                long: location.coordinates.long,
+              facebook.getUserById(senderId).then(data => {
+                Locations.addLocation(data, {
+                  lat: location.coordinates.lat,
+                  long: location.coordinates.long,
+                });
+              }).catch((error) => {
+                // Save the location if facebook can't get the user
+                logger.error(`Can't save the location an error happend getting the user: ${error.message}`);
+
+                Locations.addLocation({}, {
+                  lat: location.coordinates.lat,
+                  long: location.coordinates.long,
+                });
               });
 
               facebook.sendMessage(senderId, CONGRATS_REPORT);

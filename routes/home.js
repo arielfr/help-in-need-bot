@@ -50,6 +50,14 @@ router.get('/', (req, res) => {
                     map: map
                 });
                 
+                var infowindow = new google.maps.InfoWindow({
+                  content: '<div><p>Reporter: ' + locations[i].user.first_name + '</p><div><img src="' + locations[i].user.profile_pic + '" width="100" height="100"/></div></div>',
+                });
+                
+                marker.addListener('click', function() {
+                  infowindow.open(map, this);
+                });
+                
                  //extend the bounds to include each marker's position
                 bounds.extend(marker.position);
             }

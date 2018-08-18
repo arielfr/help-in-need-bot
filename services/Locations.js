@@ -40,16 +40,29 @@ class Locations {
    * @param lat
    * @param long
    */
-  addLocation({ lat, long }) {
+  addLocation(userData, { lat, long }) {
     if (!this.isAlreadyReported({ lat, long })) {
       logger.info(`Adding the location: Lat = ${lat} / Long = ${long}`);
 
-      // If the person is not already added add it to the locations
-      this.locations.push({
+      const location = {
         lat,
         long,
         priority: 0,
-      });
+        user: {},
+      };
+
+      // If have user data, save it
+      if (userData) {
+        location.user = {
+          id: userData.id,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
+          profile_pic: userData.profile_pic,
+        };
+      }
+
+      // If the person is not already added add it to the locations
+      this.locations.push(location);
     } else {
       logger.info(`The person was already reported inside a min radius of ${this.minRadius}`);
     }
@@ -118,6 +131,10 @@ class Locations {
     return this.locations.map((l) => ({
       lat: l.lat,
       lng: l.long,
+      user: {
+        first_name: l.user.first_name,
+        profile_pic: l.user.profile_pic,
+      }
     }));
   }
 }
