@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
             // The map
             var map = new google.maps.Map(
                 document.getElementById('map'), {
-                  zoom: 8,
+                  zoom: 12,
                   center: (locations.length == 1) ? new google.maps.LatLng(locations[0].lat, locations[0].lng) : new google.maps.LatLng(-34.593745160069, -58.402721234091),
                 });
             
@@ -56,8 +56,6 @@ router.get('/', (req, res) => {
             
             if (locations.length >= 2) {
                 map.fitBounds(bounds);
-                var zoom = map.getZoom();
-                map.setZoom(zoom > 8 ? 8 : zoom);
             }
           }
         </script>
