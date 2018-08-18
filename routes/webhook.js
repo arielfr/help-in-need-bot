@@ -57,33 +57,45 @@ router.post('/webhook', (req, res) => {
       // will only ever contain one message, so we get index 0
       const webhook_event = entry.messaging[0];
       const senderId = webhook_event.sender.id;
+      const message = webhook_event.message;
+      const tags = message.tags;
+      const fromCustomerChat = tags ? (tags.source === 'customer_chat_plugin') : false;
 
       // Check if it is a message
-      if (webhook_event.message) {
+      if (message) {
         // Mark message as seen
         facebook.sendAction(senderId, facebook.available_actions.MARK_AS_READ);
 
         // Check if message comes from a quick reply
-        if (webhook_event.message.quick_reply) {
-          const quickReply = webhook_event.message.quick_reply;
+        if (message.quick_reply) {
           let message = '';
+          const quickReply = message.quick_reply;
 
-          // Set the message depending on the quick reply
-          if (quickReply.payload === 'REPORT') {
-            message = BUTTON_REPORT;
-          } else if (quickReply.payload === 'HELP') {
-            message = BUTTON_HELP;
+          if (fromCustomerChat) {
+            // Set the message depending on the quick reply
+            if (quickReply.payload === 'REPORT') {
+              message = `You need to do it through https://www.facebook.com or the Messenger App`;
+            } else if (quickReply.payload === 'HELP') {
+              message = `Just look on the map the persons in need near you`;
+            }
+          } else {
+            // Set the message depending on the quick reply
+            if (quickReply.payload === 'REPORT') {
+              message = BUTTON_REPORT;
+            } else if (quickReply.payload === 'HELP') {
+              message = BUTTON_HELP;
+            }
+
+            // Save user last action
+            Actions.save(senderId, quickReply.payload);
+
+            // Send the Quick Reply for location
+            setTimeout(() => {
+              facebook.quickReplyLocation(senderId, message);
+            }, 200);
           }
-
-          // Save user last action
-          Actions.save(senderId, quickReply.payload);
-
-          // Send the Quick Reply for location
-          setTimeout(() => {
-            facebook.quickReplyLocation(senderId, message);
-          }, 200);
-        } else if (webhook_event.message.text) {
-          logger.info(`Message receive from user [${senderId}]: ${webhook_event.message.text}`);
+        } else if (message.text) {
+          logger.info(`Message receive from user [${senderId}]: ${message.text}`);
 
           // Wait for previous message comes first
           setTimeout(() => {
@@ -101,8 +113,8 @@ router.post('/webhook', (req, res) => {
 
           // Save the user interacted
           Users.save(senderId);
-        } else if (webhook_event.message.attachments) {
-          const attachment = webhook_event.message.attachments[0];
+        } else if (message.attachments) {
+          const attachment = message.attachments[0];
 
           // Check if the attachment is a locatiom
           if (attachment.type === 'location') {
