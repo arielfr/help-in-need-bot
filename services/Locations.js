@@ -109,6 +109,17 @@ class Locations {
       distance
     );
   }
+
+  /**
+   * Get all the locations
+   * @returns {Array}
+   */
+  getGmapsLocations() {
+    return this.locations.map((l) => ({
+      lat: l.lat,
+      lng: l.long,
+    }));
+  }
 }
 
 module.exports = new Locations();

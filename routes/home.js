@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const Locations = require('../services/Locations');
+
 router.get('/', (req, res) => {
   const gMapsKey = `AIzaSyCOYEvL-P4izjM3BkSqTI0oK3QTjaeAIEc`;
+
+  const locations = Locations.getGmapsLocations();
 
   res.send(`
     <!DOCTYPE html>
@@ -28,13 +32,20 @@ router.get('/', (req, res) => {
         <script>
           // Initialize and add the map
           function initMap() {
-            // The location of Uluru
-            var uluru = {lat: -25.344, lng: 131.036};
-            // The map, centered at Uluru
+            var locations = ${locations.length === 0 ? '[]' : locations};
+            // The map
             var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 4, center: uluru});
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({position: uluru, map: map});
+                document.getElementById('map'), {zoom: 4});
+            
+            for (var i = 0; i < locations.length; i++) {
+                new google.maps.Marker({
+                    position: {
+                      lat: locations[i].lat,
+                      lng: locations[i].lng,
+                    },
+                    map: map
+                });              
+            }
           }
         </script>
         <script async defer
