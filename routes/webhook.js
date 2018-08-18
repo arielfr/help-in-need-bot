@@ -57,17 +57,17 @@ router.post('/webhook', (req, res) => {
       // will only ever contain one message, so we get index 0
       const webhook_event = entry.messaging[0];
       const senderId = webhook_event.sender.id;
-      const message = webhook_event.message;
-      const tags = message.tags;
+      const fbMessage = webhook_event.message;
+      const tags = fbMessage.tags;
       const fromCustomerChat = tags ? (tags.source === 'customer_chat_plugin') : false;
 
       // Check if it is a message
-      if (message) {
+      if (fbMessage) {
         // Mark message as seen
         facebook.sendAction(senderId, facebook.available_actions.MARK_AS_READ);
 
         // Check if message comes from a quick reply
-        if (message.quick_reply) {
+        if (fbMessage.quick_reply) {
           let message = '';
           const quickReply = message.quick_reply;
 
@@ -94,8 +94,8 @@ router.post('/webhook', (req, res) => {
               facebook.quickReplyLocation(senderId, message);
             }, 200);
           }
-        } else if (message.text) {
-          logger.info(`Message receive from user [${senderId}]: ${message.text}`);
+        } else if (fbMessage.text) {
+          logger.info(`Message receive from user [${senderId}]: ${fbMessage.text}`);
 
           // Wait for previous message comes first
           setTimeout(() => {
@@ -113,8 +113,8 @@ router.post('/webhook', (req, res) => {
 
           // Save the user interacted
           Users.save(senderId);
-        } else if (message.attachments) {
-          const attachment = message.attachments[0];
+        } else if (fbMessage.attachments) {
+          const attachment = fbMessage.attachments[0];
 
           // Check if the attachment is a locatiom
           if (attachment.type === 'location') {
