@@ -78,6 +78,8 @@ router.post('/webhook', (req, res) => {
             } else if (quickReply.payload === 'HELP') {
               message = `Just look on the map the persons in need near you`;
             }
+
+            facebook.sendMessage(senderId, message);
           } else {
             // Set the message depending on the quick reply
             if (quickReply.payload === 'REPORT') {
