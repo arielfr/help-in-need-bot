@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
         <script>
           // Initialize and add the map
           function initMap() {
-            var locations = ${locations.length === 0 ? '[]' : locations};
+            var locations = ${locations.length === 0 ? '[]' : locations.toString()};
             // The map
             var map = new google.maps.Map(
                 document.getElementById('map'), {zoom: 4});
