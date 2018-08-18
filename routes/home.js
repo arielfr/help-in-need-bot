@@ -32,22 +32,30 @@ router.get('/', (req, res) => {
         <script>
           // Initialize and add the map
           function initMap() {
+            var bounds = new google.maps.LatLngBounds();
             var locations = ${locations.length === 0 ? '[]' : JSON.stringify(locations)};
             // The map
             var map = new google.maps.Map(
                 document.getElementById('map'), {
-                  zoom: 4,
-                  center: new google.maps.LatLng(0, 0),
+                  zoom: 8,
+                  center: new google.maps.LatLng(-34.593745160069, -58.402721234091),
                 });
             
             for (var i = 0; i < locations.length; i++) {
-                new google.maps.Marker({
+                var marker = new google.maps.Marker({
                     position: {
                       lat: locations[i].lat,
                       lng: locations[i].lng,
                     },
                     map: map
-                });              
+                });
+                
+                 //extend the bounds to include each marker's position
+                bounds.extend(marker.position);
+            }
+            
+            if (locations.length > 0) {
+                map.fitBounds(bounds);              
             }
           }
         </script>
