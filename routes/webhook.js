@@ -69,7 +69,7 @@ router.post('/webhook', (req, res) => {
         // Check if message comes from a quick reply
         if (fbMessage.quick_reply) {
           let message = '';
-          const quickReply = message.quick_reply;
+          const quickReply = fbMessage.quick_reply;
 
           if (fromCustomerChat) {
             // Set the message depending on the quick reply
