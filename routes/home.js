@@ -32,10 +32,13 @@ router.get('/', (req, res) => {
         <script>
           // Initialize and add the map
           function initMap() {
-            var locations = ${locations.length === 0 ? '[]' : locations.toString()};
+            var locations = ${locations.length === 0 ? '[]' : JSON.stringify(locations)};
             // The map
             var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 4});
+                document.getElementById('map'), {
+                  zoom: 4,
+                  center: new google.maps.LatLng(0, 0),
+                });
             
             for (var i = 0; i < locations.length; i++) {
                 new google.maps.Marker({
