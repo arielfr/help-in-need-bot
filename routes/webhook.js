@@ -142,23 +142,23 @@ router.post('/webhook', (req, res) => {
               facebook.sendMessage(senderId, CONGRATS_REPORT);
               // If it is a help we retrieve the locations
             } else if (Actions.get(senderId) === 'HELP') {
-              const locations = Locations.getNearLocations({
+              Locations.getNearLocations({
                 lat: location.coordinates.lat,
                 long: location.coordinates.long,
                 priority: location.priority,
+              }).then(locations => {
+                if (locations.length > 0) {
+                  let locationsMessage = CONGRATS_HELP;
+
+                  locations.forEach(l => {
+                    locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
+                  });
+
+                  facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
+                } else {
+                  facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
+                }
               });
-
-              if (locations.length > 0) {
-                let locationsMessage = CONGRATS_HELP;
-
-                locations.forEach(l => {
-                  locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
-                });
-
-                facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
-              } else {
-                facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
-              }
             }
 
             Actions.remove(senderId);

@@ -3,18 +3,15 @@ const { MongoClient } = require('mongodb');
 
 class MongoDB {
   constructor(){
-    let userAndPassword = '';
-
-    if (config.get('mongo.user') && config.get('mongo.password')) {
-      userAndPassword = `${config.get('mongo.user')}:${config.get('mongo.password')}@`;
-    }
-
-    this.mongoServer = `mongodb://${userAndPassword}${config.get('mongo.host')}:${config.get('mongo.port')}/${config.get('mongo.database')}`;
+    const { user, password, host, port, database } = config.get('mongo');
+    this.mongoServer = `mongodb://${(user && password) ? `${user}:${password}@` : ''}${host}:${port}/${database}`;
   }
 
   connect() {
     return new Promise((resolve, reject) => {
-      MongoClient.connect(this.mongoServer, (err, client) => {
+      MongoClient.connect(this.mongoServer, {
+        useNewUrlParser: true
+      }, (err, client) => {
         if (err) return reject(err);
         return resolve({
           client,
