@@ -4,7 +4,10 @@ const router = express.Router();
 const Locations = require('../services/Locations');
 
 router.get('/', (req, res) => {
+  const { lat, long } = req.query;
   const gMapsKey = `AIzaSyCOYEvL-P4izjM3BkSqTI0oK3QTjaeAIEc`;
+
+  console.log(lat, long)
 
   Locations.getGmapsLocations().then(locations => {
     res.send(`
@@ -33,11 +36,13 @@ router.get('/', (req, res) => {
             function initMap() {
               var bounds = new google.maps.LatLngBounds();
               var locations = ${locations.length === 0 ? '[]' : JSON.stringify(locations)};
+              var userLatLong = ${lat && long ? 'true' : 'false'};
+              
               // The map
               var map = new google.maps.Map(
                   document.getElementById('map'), {
                     zoom: 12,
-                    center: (locations.length == 1) ? new google.maps.LatLng(locations[0].lat, locations[0].lng) : new google.maps.LatLng(-34.593745160069, -58.402721234091),
+                    center: userLatLong ? new google.maps.LatLng(${lat}, ${long}) : (locations.length == 1) ? new google.maps.LatLng(locations[0].lat, locations[0].lng) : new google.maps.LatLng(-34.6036754, -58.3824593,18.55),
                   });
               
               for (var i = 0; i < locations.length; i++) {
@@ -61,7 +66,7 @@ router.get('/', (req, res) => {
                   bounds.extend(marker.position);
               }
               
-              if (locations.length >= 2) {
+              if (!userLatLong && locations.length >= 2) {
                   map.fitBounds(bounds);
               }
             }

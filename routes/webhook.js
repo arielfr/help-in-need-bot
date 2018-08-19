@@ -154,6 +154,8 @@ router.post('/webhook', (req, res) => {
                     locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
                   });
 
+                  locationsMessage = locationsMessage.concat(`\n\nSee all the help needed here https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
+
                   facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
                 } else {
                   facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
