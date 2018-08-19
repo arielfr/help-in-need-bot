@@ -81,11 +81,14 @@ We provide a waypoint on a map at google maps
 
 ## Technical Spoilers
 
-Just read the code, don't be lazy. Just kidding. This application was done using **NodeJS**. This are the main packages that we are using:
+Just read the code, don't be lazy. Just kidding. This application was done using the next technologies:
+
+- NodeJS
+- MongoDB (Save Locations)
+
+This are the main packages that we are using:
 
 - Facebook API: [FB](https://www.npmjs.com/package/fb).
-
-To upload the attachments we are manually doing the **request**.
 
 ## Install
 
@@ -97,7 +100,25 @@ Then, comes the **easy** thing:
 npm install
 ```
 
-Done! Easy...
+Done!
+
+### Database
+
+To run a MongoDB locally we encourage to use Docker:
+
+```bash
+docker run --name mongo -p 27017:27017 -d mongo
+```
+
+### Hosts
+
+If you wan't to run the "main" page locally, you need to add the next entry on `/etc/hosts`:
+
+```bash
+127.0.0.1           help-in-need.com
+```
+
+Why?. Facebook doesn't allow to run the `Customer Chat Plugin` on a `localhost` domain.
 
 #### Start (Production)
 
@@ -126,6 +147,12 @@ now
 You can find it currently here:
 
 [https://help-in-need.now.sh](https://help-in-need.now.sh)
+
+## Database
+
+We are currently using mLab to host the database. mLab is a free solution.
+
+- [mLab](https://mlab.com/)
 
 ## License
 
