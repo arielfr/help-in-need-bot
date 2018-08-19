@@ -119,6 +119,7 @@ class Locations {
             coordinates: [lat, long]
           },
           priority: 1,
+          time_added: new Date(),
           user: {},
         };
 
@@ -157,6 +158,8 @@ class Locations {
         collection.find({
           loc: this.getGeoWithinQuery({ lat, long, distance: Locations.SEARCH_RADIUS_METERS }),
         }).limit(limit).toArray((err, res) => {
+          MongoDB.close(client);
+
           if (err) {
             logger.error(`An error ocurr looking for the locations near: Lat = ${lat} / Long = ${long}`);
             return resolve([]);
@@ -187,6 +190,8 @@ class Locations {
         const collection = db.collection(Locations.COLLECTION_NAME);
 
         collection.find({}).limit(limit).toArray((err, res) => {
+          MongoDB.close(client);
+
           if (err) {
             logger.error(`An error ocurr looking for gMaps locations: Lat = ${lat} / Long = ${long}`);
             return resolve([]);
@@ -205,6 +210,56 @@ class Locations {
 
           resolve(found);
         })
+      });
+    });
+  }
+
+  /**
+   * Expire entries from Yesterday
+   * @returns {Promise<any>}
+   */
+  expireYesterday() {
+    return new Promise((resolve, reject) => {
+      MongoDB.connect().then(({ client, db }) => {
+        const collection = db.collection(Locations.COLLECTION_NAME);
+        const now = new Date();
+
+        collection.deleteMany({
+          time_added:{
+            $lte: now.getDate() - 1,
+          }
+        }).then(() => {
+          MongoDB.close(client);
+
+          resolve(true);
+        }).catch((err) => {
+          MongoDB.close(client);
+
+          resolve(err);
+        });
+      });
+    });
+  }
+
+  /**
+   * Delete All Locations
+   * @returns {Promise<any>}
+   */
+  deleteAll() {
+    return new Promise((resolve, reject) => {
+      MongoDB.connect().then(({ client, db }) => {
+        const collection = db.collection(Locations.COLLECTION_NAME);
+        const now = new Date();
+
+        collection.drop().then(() => {
+          MongoDB.close(client);
+
+          resolve(true);
+        }).catch((err) => {
+          MongoDB.close(client);
+
+          resolve(err);
+        });
       });
     });
   }

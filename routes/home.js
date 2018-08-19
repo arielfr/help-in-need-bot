@@ -112,4 +112,28 @@ router.get('/about', (req, res) => {
   })
 });
 
+router.get('/expire', (req, res) => {
+  Locations.expireYesterday().then(() => {
+    res.send({
+      result: 'OK',
+    })
+  }).catch((err) => {
+    res.send({
+      result: err,
+    })
+  });
+});
+
+router.get('/drop', (req, res) => {
+  Locations.deleteAll().then(() => {
+    res.send({
+      result: 'OK',
+    })
+  }).catch((err) => {
+    res.send({
+      result: err,
+    })
+  });
+});
+
 module.exports = router;
