@@ -75,9 +75,14 @@ router.post('/webhook', (req, res) => {
           if (fromCustomerChat) {
             // Set the message depending on the quick reply
             if (quickReply.payload === 'REPORT') {
+              // QUESTION - hlopez - "share location" no está soportado en el chat web? 
+              //                      Si es así, estaría bueno ponerlo (el bot no tiene la culpa digamos)
               message = `You need to do it through https://www.facebook.com or the Messenger App`;
             } else if (quickReply.payload === 'HELP') {
-              message = `Just look on the map the persons in need near you`;
+              // QUESTION - hlopez - ya estoy divagando, pero ya que en esta versión no nos puede compartir la ubicación (supongo), 
+              //                     nos podría pasar un texto tipo el "neighborhood", "county" or "state" y darle un link a la web
+              //                     con esa location (tipo un redirect de la misma web)
+              message = `Great! Just look on the map the locations of people in need near you`;
             }
 
             facebook.sendMessage(senderId, message);
