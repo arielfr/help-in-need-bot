@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const { GOOGLE_MAPS_KEY } = process.env;
 
 const Locations = require('../services/Locations');
 
 router.get('/', (req, res) => {
   const { lat, long } = req.query;
-  const gMapsKey = `AIzaSyCOYEvL-P4izjM3BkSqTI0oK3QTjaeAIEc`;
+  const gMapsKey = GOOGLE_MAPS_KEY;
 
   Locations.getGmapsLocations().then(locations => {
     res.send(`
@@ -16,14 +17,12 @@ router.get('/', (req, res) => {
             html,
             body{
               height: 100%;
-            }
-            body{
               margin: 0px;
+              padding: 0px;
             }
             /* Set the size of the div element that contains the map */
             #map {
-              height:100%;  /* The height is 400 pixels */
-              width: 100%;  /* The width is the width of the web page */
+              height:100%;
              }
           </style>
         </head>
@@ -52,9 +51,15 @@ router.get('/', (req, res) => {
                       map: map
                   });
                   
-                  var infowindow = new google.maps.InfoWindow({
-                    content: '<div><p>Reporter: ' + locations[i].user.first_name + '</p><div><img src="' + locations[i].user.profile_pic + '" width="100" height="100"/></div></div>',
-                  });
+                  const infowindow = new google.maps.InfoWindow();
+                  const infoWindowContent = '<div><p>Reporter: ' + locations[i].user.first_name + '</p><div><img src="' + locations[i].user.profile_pic + '" width="100" height="100"/></div></div>';
+                  
+                  google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow){ 
+                      return function() {
+                          infowindow.setContent(content);
+                          infowindow.open(map,marker);
+                      };
+                  })(marker,infoWindowContent,infowindow)); 
                   
                   marker.addListener('click', function() {
                     infowindow.open(map, this);
