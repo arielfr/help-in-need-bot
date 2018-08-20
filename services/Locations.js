@@ -135,7 +135,7 @@ class Locations {
         collection.insertOne(data).then(() => {
           MongoDB.close(client);
         }).catch((err) => {
-          console.log(err);
+          logger.error(`An error ocurr adding location: ${err}`);
 
           MongoDB.close(client);
         });

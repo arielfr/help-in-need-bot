@@ -7,8 +7,6 @@ router.get('/', (req, res) => {
   const { lat, long } = req.query;
   const gMapsKey = `AIzaSyCOYEvL-P4izjM3BkSqTI0oK3QTjaeAIEc`;
 
-  console.log(lat, long)
-
   Locations.getGmapsLocations().then(locations => {
     res.send(`
       <!DOCTYPE html>
