@@ -14,6 +14,7 @@ const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. 
 const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you. Would you love to continue helping? Talk to me again!`;
 const CONGRATS_HELP = `People in your community reported the following locations:`;
 const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
+const CONGRATS_LOCATIONS = `Check out all locations reported on our map here: `
 
 /**
  * Verification Token Endpoint
@@ -154,7 +155,9 @@ router.post('/webhook', (req, res) => {
                     locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
                   });
 
-                  locationsMessage = locationsMessage.concat(`\n\nSee all the help near you needed https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
+                  locationsMessage = locationsMessage.concat(`\n\n`)
+                  locationsMessage = locationsMessage.concat(CONGRATS_LOCATIONS)
+                  locationsMessage = locationsMessage.concat(`https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
 
                   facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
                 } else {
