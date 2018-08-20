@@ -57,33 +57,47 @@ router.post('/webhook', (req, res) => {
       // will only ever contain one message, so we get index 0
       const webhook_event = entry.messaging[0];
       const senderId = webhook_event.sender.id;
+      const fbMessage = webhook_event.message;
+      const tags = fbMessage.tags;
+      const fromCustomerChat = tags ? (tags.source === 'customer_chat_plugin') : false;
 
       // Check if it is a message
-      if (webhook_event.message) {
+      if (fbMessage) {
         // Mark message as seen
         facebook.sendAction(senderId, facebook.available_actions.MARK_AS_READ);
 
         // Check if message comes from a quick reply
-        if (webhook_event.message.quick_reply) {
-          const quickReply = webhook_event.message.quick_reply;
+        if (fbMessage.quick_reply) {
           let message = '';
+          const quickReply = fbMessage.quick_reply;
 
-          // Set the message depending on the quick reply
-          if (quickReply.payload === 'REPORT') {
-            message = BUTTON_REPORT;
-          } else if (quickReply.payload === 'HELP') {
-            message = BUTTON_HELP;
+          if (fromCustomerChat) {
+            // Set the message depending on the quick reply
+            if (quickReply.payload === 'REPORT') {
+              message = `You need to do it through https://www.facebook.com or the Messenger App`;
+            } else if (quickReply.payload === 'HELP') {
+              message = `Just look on the map the persons in need near you`;
+            }
+
+            facebook.sendMessage(senderId, message);
+          } else {
+            // Set the message depending on the quick reply
+            if (quickReply.payload === 'REPORT') {
+              message = BUTTON_REPORT;
+            } else if (quickReply.payload === 'HELP') {
+              message = BUTTON_HELP;
+            }
+
+            // Save user last action
+            Actions.save(senderId, quickReply.payload);
+
+            // Send the Quick Reply for location
+            setTimeout(() => {
+              facebook.quickReplyLocation(senderId, message);
+            }, 200);
           }
-
-          // Save user last action
-          Actions.save(senderId, quickReply.payload);
-
-          // Send the Quick Reply for location
-          setTimeout(() => {
-            facebook.quickReplyLocation(senderId, message);
-          }, 200);
-        } else if (webhook_event.message.text) {
-          logger.info(`Message receive from user [${senderId}]: ${webhook_event.message.text}`);
+        } else if (fbMessage.text) {
+          logger.info(`Message receive from user [${senderId}]: ${fbMessage.text}`);
 
           // Wait for previous message comes first
           setTimeout(() => {
@@ -101,8 +115,8 @@ router.post('/webhook', (req, res) => {
 
           // Save the user interacted
           Users.save(senderId);
-        } else if (webhook_event.message.attachments) {
-          const attachment = webhook_event.message.attachments[0];
+        } else if (fbMessage.attachments) {
+          const attachment = fbMessage.attachments[0];
 
           // Check if the attachment is a locatiom
           if (attachment.type === 'location') {
@@ -110,31 +124,43 @@ router.post('/webhook', (req, res) => {
 
             // If it is a report we save the location reported
             if (Actions.get(senderId) === 'REPORT') {
-              Locations.addLocation({
-                lat: location.coordinates.lat,
-                long: location.coordinates.long,
+              facebook.getUserById(senderId).then(data => {
+                Locations.addLocation(data, {
+                  lat: location.coordinates.lat,
+                  long: location.coordinates.long,
+                });
+              }).catch((error) => {
+                // Save the location if facebook can't get the user
+                logger.error(`Can't save the location an error happend getting the user: ${error.message}`);
+
+                Locations.addLocation({}, {
+                  lat: location.coordinates.lat,
+                  long: location.coordinates.long,
+                });
               });
 
               facebook.sendMessage(senderId, CONGRATS_REPORT);
               // If it is a help we retrieve the locations
             } else if (Actions.get(senderId) === 'HELP') {
-              const locations = Locations.getNearLocations({
+              Locations.getNearLocations({
                 lat: location.coordinates.lat,
                 long: location.coordinates.long,
                 priority: location.priority,
+              }).then(locations => {
+                if (locations.length > 0) {
+                  let locationsMessage = CONGRATS_HELP;
+
+                  locations.forEach(l => {
+                    locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
+                  });
+
+                  locationsMessage = locationsMessage.concat(`\n\nSee all the help near you needed https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
+
+                  facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
+                } else {
+                  facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
+                }
               });
-
-              if (locations.length > 0) {
-                let locationsMessage = CONGRATS_HELP;
-
-                locations.forEach(l => {
-                  locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
-                });
-
-                facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
-              } else {
-                facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
-              }
             }
 
             Actions.remove(senderId);

@@ -26,6 +26,20 @@ module.exports = {
     IMAGE_FILE: 'image',
     GENERIC_FILE: 'file',
   },
+  getUserById(userId) {
+    return new Promise((resolve, reject) => {
+      fb.api(userId, (res) => {
+        if (!res || res.error) {
+          logger.error(`An error ocurr on sendMessage: ${res.error.message}`);
+          reject(res.error);
+          return;
+        }
+
+        logger.info(`Get user information with id = ${userId}`);
+        resolve(res);
+      });
+    });
+  },
   /**
    * Send message to Facebook User
    * @param senderId

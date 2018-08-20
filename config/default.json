@@ -1,5 +1,10 @@
 {
   "port": 3000,
   "verification_token": "help_in_need_bot",
-  "token": "EAAe5UI3mFYIBAIop1ZAWYYZA3ehetZBeFjzwDTYHYb7rvqrz0xKtmKobWtFtjwQnI9bkZCt86X4lVDfmFI3fZCvnvJp6ttZAYNOfpqImfdZAc0vzwbMDNfgJPCoQeNWTZB2QTGofnif7R8qZB3UysGL6YjpyZA63THrczFJvaeNlK0jQZDZD"
+  "token": "EAAe5UI3mFYIBAKMnq6xfoER3VrQXWIUDgLmYmQR2OCcOgi4fYTti3wyrojOm11H65BGexV0J0DZAZB6lYsADswMZAuZCtS11fkN8VpbonWC3LaqPq4PQeZAxCWnrgj4d6lY76qsHA6zNZAJHu0bJhSjbdeB9sgrtHEvaY5XGZBRMgZDZD",
+  "mongo": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "help-in-need"
+  }
 }
