@@ -12,8 +12,9 @@ const BUTTON_HELP = 'Please share your location in order to see people in need n
 const CHOOSE_TEXT = 'Hi there! You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
 const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. Would you love to continue helping? Talk to me again!`;
 const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you. Would you love to continue helping? Talk to me again!`;
-const CONGRATS_HELP = `Your community reported this locations near your location:`;
+const CONGRATS_HELP = `People in your community reported the following locations:`;
 const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
+const CONGRATS_LOCATIONS = `Check out all locations reported on our map here: `
 
 /**
  * Verification Token Endpoint
@@ -74,9 +75,14 @@ router.post('/webhook', (req, res) => {
           if (fromCustomerChat) {
             // Set the message depending on the quick reply
             if (quickReply.payload === 'REPORT') {
+              // QUESTION - hlopez - "share location" no está soportado en el chat web? 
+              //                      Si es así, estaría bueno ponerlo (el bot no tiene la culpa digamos)
               message = `You need to do it through https://www.facebook.com or the Messenger App`;
             } else if (quickReply.payload === 'HELP') {
-              message = `Just look on the map the persons in need near you`;
+              // QUESTION - hlopez - ya estoy divagando, pero ya que en esta versión no nos puede compartir la ubicación (supongo), 
+              //                     nos podría pasar un texto tipo el "neighborhood", "county" or "state" y darle un link a la web
+              //                     con esa location (tipo un redirect de la misma web)
+              message = `Great! Just look on the map the locations of people in need near you`;
             }
 
             facebook.sendMessage(senderId, message);
@@ -154,7 +160,9 @@ router.post('/webhook', (req, res) => {
                     locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
                   });
 
-                  locationsMessage = locationsMessage.concat(`\n\nSee all the help near you needed https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
+                  locationsMessage = locationsMessage.concat(`\n\n`)
+                  locationsMessage = locationsMessage.concat(CONGRATS_LOCATIONS)
+                  locationsMessage = locationsMessage.concat(`https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
 
                   facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
                 } else {

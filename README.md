@@ -29,9 +29,9 @@ This is the source-code for a `Facebook Messenger Chat Bot` that is going to emp
 
 ## How
 
-This bot will allow you to empower your community by fostering help with each other. If you want to help someone, all you have to do is open Facebook Messenger and search for "Help In Need". Once you started a conversation you will be able to choose:
+This bot will empower members of the community by fostering help for each other. If you want to help someone, all you have to do is open Facebook Messenger and search for "Help In Need". Once a conversation is started, you will be able to choose:
 
-- Reporting someone's in need location
+- Report the location of someone in need
 - Help someone close to you
 
 <kbd>
@@ -40,19 +40,19 @@ This bot will allow you to empower your community by fostering help with each ot
 
 ### Report
 
-When the options appear you will be able to choose `Report`. Once you choose this option, you will see a button (`Send Location`) to share someone's in need location.
+When the options appear you will be able to choose `Report`. Once you choose this option, you will see a button (`Send Location`) to share the location of someone in need.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG" width="350">
 </kbd>
 
-In case you are close to the person just share your current location, in other case, you can search locaction by address or drag a waypoint on map.
+If you are close to the person, just share your current location. You can search for the locaction by address or drag a waypoint on map.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108497-7fbb427e-8eb8-11e8-94dc-7fd037c87442.JPG" width="350">
 </kbd>
 
-Ready, that's easy. Now other people or organizations can find and assist them!
+That's it! Now other people or organizations can find and assist them!
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108758-d12ed4d0-8eb9-11e8-8d15-0cb5415c85a7.JPG" width="350">
@@ -60,13 +60,13 @@ Ready, that's easy. Now other people or organizations can find and assist them!
 
 ### Help
 
-You can also ask for people's in need locations. When the options appear you will be able to choose the option `Help`. 
+You can also search for people in need around you so that you can provide help. When the options appear, you choose the option `Help`. 
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108470-5facca70-8eb8-11e8-99e1-20f3360b3cb2.JPG" width="350">
 </kbd>
 
-So, using our database any person or organization could use these information to help someone in need.
+So, using our database any person or organization could use this information to help someone in need.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108499-8536bf3a-8eb8-11e8-891a-b1c6010392c3.JPG" width="350">
@@ -75,7 +75,7 @@ So, using our database any person or organization could use these information to
     <img src="https://user-images.githubusercontent.com/4379982/43108759-d242a3ec-8eb9-11e8-8acd-012f2bf55d6d.JPG" width="350">
 </kbd>
 
-We provide a waypoint on a map at google maps
+We provide a waypoint on a map on google maps
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/43108503-8bead186-8eb8-11e8-9f31-059b9a1f0a4c.JPG" width="350">
