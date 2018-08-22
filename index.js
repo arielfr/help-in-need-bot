@@ -13,7 +13,7 @@ const app = express();
 // Adding body-parser
 app.use(bodyParser.json());
 
-app.use(require('./routes/home'));
+app.use(require('./routes/index'));
 app.use(require('./routes/ping'));
 app.use(require('./routes/public'));
 app.use(require('./routes/webhook'));
