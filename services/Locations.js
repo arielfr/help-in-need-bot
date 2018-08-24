@@ -273,7 +273,7 @@ class Locations {
       MongoDB.connect().then(({ client, db }) => {
         const collection = db.collection(Locations.COLLECTION_NAME);
 
-        collection.count().then((total) => {
+        collection.countDocuments().then((total) => {
           MongoDB.close(client);
 
           resolve(total);

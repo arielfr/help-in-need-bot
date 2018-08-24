@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { GOOGLE_MAPS_KEY } = process.env;
-const IndexPage = require('../pages/index');
-const AboutPage = require('../pages/about');
 
 const Locations = require('../services/Locations');
 
@@ -17,20 +15,36 @@ router.get('/', (req, res) => {
     const locations = resPromises[0];
     const totalLocations = resPromises[1];
 
-    res.send(
-      IndexPage(gMapsKey,
-        {
-          lat,
-          long,
-        },
-        locations,
-        totalLocations)
-    );
+    res.render('index', {
+      gMapsKey,
+      current: {
+        lat,
+        long,
+      },
+      locations,
+      total: totalLocations,
+    });
   });
 });
 
 router.get('/about', (req, res) => {
-  res.send(AboutPage());
+  res.send({
+    developer_circles: {
+      project: 'Messenger Help In Need Chat Bot',
+      description: 'Say hello to the first humanitarian bot... This bot will allow to empower, help and bring communities together',
+      repository: 'https://github.com/arielfr/help-in-need-bot',
+      participants: [
+        {
+          name: 'Ariel Rey',
+          github: 'https://github.com/arielfr',
+        },
+        {
+          name: 'Horacio Lopez',
+          github: 'https://github.com/hdlopez',
+        },
+      ]
+    }
+  });
 });
 
 router.get('/expire', (req, res) => {
