@@ -15,7 +15,7 @@ const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you. Woul
 const CONGRATS_HELP = `People in your community reported the following locations:`;
 const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
 const CONGRATS_LOCATIONS = `Check out all locations reported on our map here: `;
-const CUSTOMER_CHAT_CONGRATS_REPORT = `You need to do it through https://www.facebook.com or the Messenger App`;
+const CUSTOMER_CHAT_CONGRATS_REPORT = `You need to do it through http://m.me/helpinneedbot`;
 const CUSTOMER_CHAT_CONGRATS_HELP = `Great! Just look on the map the locations of people in need near you`;
 
 /**
