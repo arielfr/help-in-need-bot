@@ -2,22 +2,95 @@ module.exports = (gMapsKey, { lat, long }, locations) => (`
     <!DOCTYPE html>
     <html>
       <head>
+        <title>Help In Need</title>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <meta name="viewport" content="width=device-width">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
         <style>
           html,
           body{
+            font-family: Roboto;
             height: 100%;
             margin: 0px;
             padding: 0px;
           }
           /* Set the size of the div element that contains the map */
+          .box {
+            display: flex;
+            flex-flow: column;
+            height: 100%;
+          }
+          
+          .box .row {
+            
+          }
+          
+          .box .row.header {
+            flex: 0 1 auto;
+            /* The above is shorthand for:
+            flex-grow: 0,
+            flex-shrink: 1,
+            flex-basis: auto
+            */
+          }
+          
+          .box .row.content {
+            flex: 1 1 auto;
+          }
+
           #map {
             height:100%;
            }
+           
+           .navbar {
+            overflow: hidden;
+            padding: 0px 30px;
+            background-color: black;
+            height: 60px;
+           }
+           
+           .navbar a.logo {
+            background-image: url(/logo.png);
+            background-repeat: no-repeat;
+            padding-left: 68px;
+            display: block;
+            background-size: 40px 40px;
+            background-position-y: 10px;
+            background-position-x: 16px;
+           }
+           
+           .navbar a {
+              float: left;
+              display: block;
+              color: white;
+              text-align: center;
+              padding: 20px 16px;
+              text-decoration: none;
+          }
+          
+          @media only screen and (max-width: 480px) {
+              .navbar {
+                padding: 0px 10px;
+               }
+          }
         </style>
       </head>
       <body>
-        <div id="map"></div>
+        <div class="box">
+          <div class="row header">
+            <div class="navbar">
+              <a class="logo" href="/">
+                  Help In Need
+              </a>
+            </div>
+          </div>
+          <div id="map" class="row content">
+          </div>        
+        </div>
+        
         <script>
+          // color: #FFFB01;
           // Initialize and add the map
           function initMap() {
             var bounds = new google.maps.LatLngBounds();
