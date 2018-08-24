@@ -74,6 +74,10 @@ module.exports = (gMapsKey, { lat, long }, locations) => (`
                 padding: 0px 0px;
                }
           }
+          
+          .fb_dialog {
+            right: 50pt !important;
+          }
         </style>
       </head>
       <body>
