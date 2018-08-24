@@ -10,14 +10,21 @@ router.get('/', (req, res) => {
   const { lat, long } = req.query;
   const gMapsKey = GOOGLE_MAPS_KEY;
 
-  Locations.getGmapsLocations().then(locations => {
+  Promise.all([
+    Locations.getGmapsLocations(),
+    Locations.getTotal()
+  ]).then(resPromises => {
+    const locations = resPromises[0];
+    const totalLocations = resPromises[1];
+
     res.send(
       IndexPage(gMapsKey,
         {
           lat,
           long,
         },
-        locations)
+        locations,
+        totalLocations)
     );
   });
 });

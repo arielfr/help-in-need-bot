@@ -263,6 +263,28 @@ class Locations {
       });
     });
   }
+
+  /**
+   * Get total elements in the collection
+   * @returns {Promise<any>}
+   */
+  getTotal() {
+    return new Promise((resolve, reject) => {
+      MongoDB.connect().then(({ client, db }) => {
+        const collection = db.collection(Locations.COLLECTION_NAME);
+
+        collection.count().then((total) => {
+          MongoDB.close(client);
+
+          resolve(total);
+        }).catch((err) => {
+          MongoDB.close(client);
+
+          resolve(0);
+        });
+      });
+    });
+  }
 }
 
 module.exports = new Locations();

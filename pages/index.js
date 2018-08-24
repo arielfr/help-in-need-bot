@@ -1,4 +1,4 @@
-module.exports = (gMapsKey, { lat, long }, locations) => (`
+module.exports = (gMapsKey, { lat, long }, locations, totalLocations) => (`
     <!DOCTYPE html>
     <html>
       <head>
@@ -69,6 +69,10 @@ module.exports = (gMapsKey, { lat, long }, locations) => (`
               text-decoration: none;
           }
           
+          .navbar a.right {
+            float: right;
+          }
+          
           @media only screen and (max-width: 480px) {
               .navbar {
                 padding: 0px 0px;
@@ -86,6 +90,9 @@ module.exports = (gMapsKey, { lat, long }, locations) => (`
             <div class="navbar">
               <a class="logo" href="/">
                   Help In Need
+              </a>
+              <a class="right">
+                Right Now: ${totalLocations}
               </a>
             </div>
           </div>
