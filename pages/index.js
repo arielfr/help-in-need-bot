@@ -71,7 +71,7 @@ module.exports = (gMapsKey, { lat, long }, locations) => (`
           
           @media only screen and (max-width: 480px) {
               .navbar {
-                padding: 0px 10px;
+                padding: 0px 0px;
                }
           }
         </style>
