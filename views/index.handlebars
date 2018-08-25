@@ -103,7 +103,7 @@
 					navigator.geolocation.getCurrentPosition(function(position) {
 						var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 						map.setCenter(latlng);
-						map.setZoom(15);
+						map.setZoom(17);
 						clearInterval(animationInterval);
 						secondChild.style['background-position'] = '-144px 0';
 					});
