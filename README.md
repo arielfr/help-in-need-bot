@@ -86,7 +86,10 @@ We provide a waypoint on a map on google maps
 Just read the code, don't be lazy. Just kidding. This application was done using the next technologies:
 
 - NodeJS
-- MongoDB (Save Locations)
+- MongoDB: Save Locations
+- Google Maps API: Show map on Page
+- MapQuest: Image from maps on Bot and on Facebook Page
+- Express
 
 This are the main packages that we are using:
 
