@@ -18,6 +18,7 @@ const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me ag
 const CONGRATS_LOCATIONS = `Check out all locations reported on our map here: `;
 const CUSTOMER_CHAT_CONGRATS_REPORT = `You need to do it through http://m.me/helpinneedbot`;
 const CUSTOMER_CHAT_CONGRATS_HELP = `Great! Just look on the map the locations of people in need near you`;
+const REPORT_MESSAGE = (date, name) => (`Reported on: ${date.toLocaleDateString("en-US")} ${name ? `by ${name}` : ''}`);
 
 /**
  * Verification Token Endpoint
@@ -128,11 +129,25 @@ router.post('/webhook', (req, res) => {
 
             // If it is a report we save the location reported
             if (Actions.get(senderId) === 'REPORT') {
+              // Generate Static Map URL From MapQuest for Page
+              const staticMapUrlForPage = MapQuest.getStaticMapUrl({
+                locations: [
+                  {
+                    lat: location.coordinates.lat,
+                    long: location.coordinates.long,
+                  }
+                ],
+              });
+              const now = new Date();
+
               facebook.getUserById(senderId).then(data => {
                 Locations.addLocation(data, {
                   lat: location.coordinates.lat,
                   long: location.coordinates.long,
                 });
+
+                // Post on Facebook Page asynchronous
+                facebook.uploadPagePhotoFromUrl(staticMapUrlForPage, REPORT_MESSAGE(now, data.first_name));
               }).catch((error) => {
                 // Save the location if facebook can't get the user
                 logger.error(`Can't save the location an error happend getting the user: ${error.message}`);
@@ -141,6 +156,9 @@ router.post('/webhook', (req, res) => {
                   lat: location.coordinates.lat,
                   long: location.coordinates.long,
                 });
+
+                // Post on Facebook Page asynchronous
+                facebook.uploadPagePhotoFromUrl(staticMapUrlForPage, REPORT_MESSAGE(now));
               });
 
               facebook.sendMessage(senderId, CONGRATS_REPORT);
@@ -168,8 +186,8 @@ router.post('/webhook', (req, res) => {
                   facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
                   */
 
-                  // Generate Static Map URL From MapQuest
-                  const imageURL = MapQuest.getStaticMapUrl({
+                  // Generate Static Map URL From MapQuest for Bot
+                  const staticMapUrlForBot = MapQuest.getStaticMapUrl({
                     current: {
                       lat: location.coordinates.lat,
                       long: location.coordinates.long,
@@ -177,13 +195,16 @@ router.post('/webhook', (req, res) => {
                     locations,
                   });
 
-                  facebook.uploadFileFromUrl(imageURL, facebook.valid_attachment_types.IMAGE_FILE).then((id) => {
+                  facebook.uploadFileFromUrl(staticMapUrlForBot, facebook.valid_attachment_types.IMAGE_FILE).then((id) => {
                     facebook.sendAction(senderId, facebook.available_actions.END_TYPING);
 
                     facebook.sendMessage(senderId, `${CONGRATS_LOCATIONS}`);
+
                     facebook.sendAttachment(senderId, id, facebook.valid_attachment_types.IMAGE_FILE);
 
-                    facebook.sendMessage(senderId, `To see all the locations click here: https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}\n\n${CONGRATS_RE_TARGETING}`);
+                    setTimeout(() => {
+                      facebook.sendMessage(senderId, `To see all the locations click here: https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}\n\n${CONGRATS_RE_TARGETING}`);
+                    }, 350);
                   }).catch((err) => {
                     facebook.sendAction(senderId, facebook.available_actions.END_TYPING);
                   });

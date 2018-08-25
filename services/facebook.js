@@ -4,13 +4,14 @@ const fb = require('fb');
 const request = require('request');
 const FileUtil = require('../utils/File');
 const isProduction = (process.env.NODE_ENV === 'production');
-const { FB_TOKEN_MESSENGER } = process.env;
+const { FB_TOKEN_MESSENGER, FB_TOKEN_PAGE } = process.env;
 
 // Set API Version
 fb.options({version: 'v2.6'});
 
 // Create a new Facebook Messenger Instance
 const FBMessenger = fb.withAccessToken(FB_TOKEN_MESSENGER);
+const FBPage = fb.withAccessToken(FB_TOKEN_PAGE);
 
 module.exports = {
   /**
@@ -371,4 +372,50 @@ module.exports = {
       }
     });
   },
+  /**
+   * Post photo to page
+   * @param url
+   * @returns {Promise<any>}
+   */
+  uploadPagePhotoFromUrl: (url, caption, published = true) => {
+    return new Promise((resolve, reject) => {
+      FBPage.api('/me/photos', 'POST', {
+        url: url,
+        caption: caption,
+        published: published,
+      }, (res) => {
+        if (!res || res.error) {
+          logger.error(`An error ocurr uploading photo: ${res.error.message}`);
+          reject(res.error);
+          return;
+        }
+
+        logger.info(`Image uploaded: ${res.id}`);
+        resolve(res.id);
+      });
+    });
+  },
+  /**
+   * Post on Page
+   * @param message
+   * @param objectId
+   * @returns {Promise<any>}
+   */
+  postOnPageWithAttachment: (message, objectId) => {
+    return new Promise((resolve, reject) => {
+      FBPage.api('/me/feed', 'POST', {
+        message: message,
+        object_attachment: objectId,
+      }, (res) => {
+        if (!res || res.error) {
+          logger.error(`An error ocurr posting on page: ${res.error.message}`);
+          reject(res.error);
+          return;
+        }
+
+        logger.info(`Post done`);
+        resolve(true);
+      });
+    });
+  }
 };
