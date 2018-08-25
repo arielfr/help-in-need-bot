@@ -4,9 +4,13 @@ const fb = require('fb');
 const request = require('request');
 const FileUtil = require('../utils/File');
 const isProduction = (process.env.NODE_ENV === 'production');
+const { FB_TOKEN_MESSENGER } = process.env;
 
-fb.setAccessToken(config.get('token'));
+// Set API Version
 fb.options({version: 'v2.6'});
+
+// Create a new Facebook Messenger Instance
+const FBMessenger = fb.withAccessToken(FB_TOKEN_MESSENGER);
 
 module.exports = {
   /**
@@ -26,9 +30,14 @@ module.exports = {
     IMAGE_FILE: 'image',
     GENERIC_FILE: 'file',
   },
+  /**
+   * Get user by id
+   * @param userId
+   * @returns {Promise<any>}
+   */
   getUserById(userId) {
     return new Promise((resolve, reject) => {
-      fb.api(userId, (res) => {
+      FBMessenger.api(userId, (res) => {
         if (!res || res.error) {
           logger.error(`An error ocurr on sendMessage: ${res.error.message}`);
           reject(res.error);
@@ -48,7 +57,7 @@ module.exports = {
   sendMessage: (senderId, message) => {
     return new Promise((resolve, reject) => {
       if (isProduction) {
-        fb.api('/me/messages', 'POST', {
+        FBMessenger.api('/me/messages', 'POST', {
           recipient: {
             id: senderId
           },
@@ -78,7 +87,7 @@ module.exports = {
    */
   sendAction: (senderId, action) => {
     if (isProduction) {
-      fb.api('/me/messages', 'POST', {
+      FBMessenger.api('/me/messages', 'POST', {
         recipient: {
           id: senderId
         },
@@ -103,7 +112,7 @@ module.exports = {
    */
   sendList: (senderId, elements, isCompact = true) => {
     if (isProduction) {
-      fb.api('/me/messages', 'POST', {
+      FBMessenger.api('/me/messages', 'POST', {
         recipient: {
           id: senderId
         },
@@ -137,7 +146,7 @@ module.exports = {
    */
   sendButtonTemplate: (senderId, text, buttons) => {
     if (isProduction) {
-      fb.api('/me/messages', 'POST', {
+      FBMessenger.api('/me/messages', 'POST', {
         recipient: {
           id: senderId
         },
@@ -170,7 +179,7 @@ module.exports = {
    */
   sendGeneric: (senderId, elements) => {
     if (isProduction) {
-      fb.api('/me/messages', 'POST', {
+      FBMessenger.api('/me/messages', 'POST', {
         recipient: {
           id: senderId
         },
@@ -203,7 +212,7 @@ module.exports = {
    */
   sendAttachment: (senderId, attachmentId, type = this.valid_attachment_types.GENERIC_FILE) => {
     if (isProduction) {
-      fb.api('/me/messages', 'POST', {
+      FBMessenger.api('/me/messages', 'POST', {
         recipient: {
           id: senderId
         },
@@ -235,28 +244,55 @@ module.exports = {
    */
   uploadFile: (attachmentPath, type = this.valid_attachment_types.GENERIC_FILE) => {
     return new Promise((resolve, reject) => {
-      const formData = {
-        message: JSON.stringify({
+      FB.api('me/message_attachments', 'post', {
+        message: {
           attachment: {
             type: type,
             payload: {
               is_reusable: true,
             }
           }
-        }),
+        },
         filedata: FileUtil.createReadStream(attachmentPath)
-      };
-
-      request.post({
-        url: `https://graph.facebook.com/v2.6/me/message_attachments?access_token=${config.get('token')}`,
-        formData,
-      }, (err, response, body) => {
-        if (err) {
-          logger.error(JSON.parse(err).message);
-          return reject(`An error ocurr generating the response`);
+      }, (res) => {
+        if (!res || res.error) {
+          logger.error(`An error ocurr on uploading file: ${res.error.message}`);
+          reject(res.error);
+          return;
         }
 
-        resolve(JSON.parse(body).attachment_id);
+        logger.info(`File was uploaded successfully: ${res.attachment_id}`);
+        resolve(res.attachment_id);
+      });
+    })
+  },
+  /**
+   * Upload file from URL
+   * @param url
+   * @param type
+   * @returns {Promise<any>}
+   */
+  uploadFileFromUrl: (url, type = this.valid_attachment_types.IMAGE_FILE) => {
+    return new Promise((resolve, reject) => {
+      FBMessenger.api('me/message_attachments', 'post', {
+        message:{
+          attachment:{
+            type: type,
+            payload:{
+              is_reusable: true,
+              url: url
+            }
+          }
+        },
+      }, (res) => {
+        if (!res || res.error) {
+          logger.error(`An error ocurr on uploading file: ${res.error.message}`);
+          reject(res.error);
+          return;
+        }
+
+        logger.info(`File was uploaded successfully: ${res.attachment_id}`);
+        resolve(res.attachment_id);
       });
     })
   },
@@ -269,7 +305,7 @@ module.exports = {
   quickReplyLocation: (senderId, message) => {
     return new Promise((resolve, reject) => {
       if (isProduction) {
-        fb.api('/me/messages', 'POST', {
+        FBMessenger.api('/me/messages', 'POST', {
           recipient: {
             id: senderId
           },
@@ -307,7 +343,7 @@ module.exports = {
   quickReplyTextButton: (senderId, message, elements = []) => {
     return new Promise((resolve, reject) => {
       if (isProduction) {
-        fb.api('/me/messages', 'POST', {
+        FBMessenger.api('/me/messages', 'POST', {
           recipient: {
             id: senderId
           },

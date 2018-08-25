@@ -6,6 +6,7 @@ const facebook = require('../services/facebook');
 const Locations = require('../services/Locations');
 const Actions = require('../services/Actions');
 const Users = require('../services/Users');
+const MapQuest = require('../services/MapQuest');
 
 const BUTTON_REPORT = `By sharing your location, you will be reporting a person in need close to you.`;
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
@@ -151,6 +152,9 @@ router.post('/webhook', (req, res) => {
                 priority: location.priority,
               }).then(locations => {
                 if (locations.length > 0) {
+                  facebook.sendAction(senderId, facebook.available_actions.TYPING);
+
+                  /*
                   let locationsMessage = CONGRATS_HELP;
 
                   locations.forEach(l => {
@@ -162,6 +166,27 @@ router.post('/webhook', (req, res) => {
                   locationsMessage = locationsMessage.concat(`https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
 
                   facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
+                  */
+
+                  // Generate Static Map URL From MapQuest
+                  const imageURL = MapQuest.getStaticMapUrl({
+                    current: {
+                      lat: location.coordinates.lat,
+                      long: location.coordinates.long,
+                    },
+                    locations,
+                  });
+
+                  facebook.uploadFileFromUrl(imageURL, facebook.valid_attachment_types.IMAGE_FILE).then((id) => {
+                    facebook.sendAction(senderId, facebook.available_actions.END_TYPING);
+
+                    facebook.sendMessage(senderId, `${CONGRATS_LOCATIONS}`);
+                    facebook.sendAttachment(senderId, id, facebook.valid_attachment_types.IMAGE_FILE);
+
+                    facebook.sendMessage(senderId, `To see all the locations click here: https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}\n\n${CONGRATS_RE_TARGETING}`);
+                  }).catch((err) => {
+                    facebook.sendAction(senderId, facebook.available_actions.END_TYPING);
+                  });
                 } else {
                   facebook.sendMessage(senderId, CONGRATS_HELP_NO_LOCATIONS);
                 }
