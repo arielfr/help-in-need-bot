@@ -212,30 +212,36 @@ module.exports = {
    * @param type
    */
   sendAttachment: (senderId, attachmentId, type = this.valid_attachment_types.GENERIC_FILE) => {
-    if (isProduction) {
-      FBMessenger.api('/me/messages', 'POST', {
-        recipient: {
-          id: senderId
-        },
-        message: {
-          attachment: {
-            type: type,
-            payload: {
-              attachment_id: attachmentId,
+    return new Promise((resolve, reject) => {
+      if (isProduction) {
+        FBMessenger.api('/me/messages', 'POST', {
+          recipient: {
+            id: senderId
+          },
+          message: {
+            attachment: {
+              type: type,
+              payload: {
+                attachment_id: attachmentId,
+              }
             }
+          },
+        }, (res) => {
+          if (!res || res.error) {
+            logger.error(`An error ocurr sending the attachment: ${res.error.message}`);
+            reject(res.error.message);
           }
-        },
-      }, (res) => {
-        if (!res || res.error) {
-          logger.error(`An error ocurr sending the attachment: ${res.error.message}`);
-          return;
-        }
 
-        logger.info(`Attachment sent to user: ${senderId}`);
-      });
-    } else {
-      logger.info(attachmentId);
-    }
+          logger.info(`Attachment sent to user: ${senderId}`);
+
+          resolve(true);
+        });
+      } else {
+        logger.info(attachmentId);
+
+        return resolve(attachmentId);
+      }
+    });
   },
   /**
    * Upload file to Facebook and get the id to attach the message
