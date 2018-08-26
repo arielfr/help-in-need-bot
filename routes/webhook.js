@@ -18,7 +18,7 @@ const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me ag
 const CONGRATS_LOCATIONS = `We have found people in need around this location. Check out the map below: `;
 const CUSTOMER_CHAT_CONGRATS_REPORT = `To report someone in need please talk to me from Facebook Messenger. You can use the following link http://m.me/helpinneedbot`;
 const CUSTOMER_CHAT_CONGRATS_HELP = `Great! Just look on the map the locations of people in need near you`;
-const REPORT_MESSAGE = (name) => (`New location reported ${name ? `by ${name}` : ''}`);
+const REPORT_MESSAGE = (location, name) => (`New location reported ${name ? `by ${name}` : ''}. https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
 
 /**
  * Verification Token Endpoint
@@ -146,7 +146,7 @@ router.post('/webhook', (req, res) => {
                 });
 
                 // Post on Facebook Page asynchronous
-                facebook.uploadPagePhotoFromUrl(staticMapUrlForPage, REPORT_MESSAGE(data.first_name));
+                facebook.uploadPagePhotoFromUrl(staticMapUrlForPage, REPORT_MESSAGE(location, data.first_name));
               }).catch((error) => {
                 // Save the location if facebook can't get the user
                 logger.error(`Can't save the location an error happend getting the user: ${error.message}`);
@@ -157,7 +157,7 @@ router.post('/webhook', (req, res) => {
                 });
 
                 // Post on Facebook Page asynchronous
-                facebook.uploadPagePhotoFromUrl(staticMapUrlForPage, REPORT_MESSAGE());
+                facebook.uploadPagePhotoFromUrl(staticMapUrlForPage, REPORT_MESSAGE(location));
               });
 
               facebook.sendMessage(senderId, CONGRATS_REPORT);
