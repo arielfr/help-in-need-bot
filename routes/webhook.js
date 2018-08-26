@@ -198,13 +198,11 @@ router.post('/webhook', (req, res) => {
                   facebook.uploadFileFromUrl(staticMapUrlForBot, facebook.valid_attachment_types.IMAGE_FILE).then((id) => {
                     facebook.sendAction(senderId, facebook.available_actions.END_TYPING);
 
-                    facebook.sendMessage(senderId, `${CONGRATS_LOCATIONS}`);
-
-                    facebook.sendAttachment(senderId, id, facebook.valid_attachment_types.IMAGE_FILE);
-
-                    setTimeout(() => {
-                      facebook.sendMessage(senderId, `To view all the locations click here: https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}\n\n${CONGRATS_RE_TARGETING}`);
-                    }, 350);
+                    facebook.sendMessage(senderId, `${CONGRATS_LOCATIONS}`).then(() => {
+                      facebook.sendAttachment(senderId, id, facebook.valid_attachment_types.IMAGE_FILE).then(() => {
+                        facebook.sendMessage(senderId, `To see all the locations click here: https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}\n\n${CONGRATS_RE_TARGETING}`);
+                      });
+                    });
                   }).catch((err) => {
                     facebook.sendAction(senderId, facebook.available_actions.END_TYPING);
                   });
