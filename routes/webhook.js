@@ -5,15 +5,19 @@ const router = express.Router();
 const facebook = require('../services/facebook');
 const Locations = require('../services/Locations');
 const Actions = require('../services/Actions');
-const Users = require('../services/Users');
 const MapQuest = require('../services/MapQuest');
+
+// Quick Reply Payloads
+const QUICK_REPLY_PAYLOADS = {
+  REPORT: 'REPORT',
+  HELP: 'HELP',
+};
 
 const BUTTON_REPORT = `By sharing your location, you will be reporting a person in need close to you.`;
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
 const CHOOSE_TEXT = 'Hi there! Using my help, you can report the location of someone in need or find and help someone close to you';
 const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. Would you love to continue helping? Talk to me again!`;
 const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you. Would you love to continue helping? Talk to me again!`;
-//const CONGRATS_HELP = `People in your community reported the following locations:`;
 const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
 const CONGRATS_LOCATIONS = `We have found people in need around this location. Check out the map below: `;
 const CUSTOMER_CHAT_CONGRATS_REPORT = `To report someone in need please talk to me from Facebook Messenger. You can use the following link http://m.me/helpinneedbot`;
@@ -66,32 +70,27 @@ router.post('/webhook', (req, res) => {
       const tags = fbMessage.tags;
       const fromCustomerChat = tags ? (tags.source === 'customer_chat_plugin') : false;
 
+      // Mark message as seen
+      facebook.sendAction(senderId, facebook.available_actions.MARK_AS_READ);
+
       // Check if it is a message
       if (fbMessage) {
-        // Mark message as seen
-        facebook.sendAction(senderId, facebook.available_actions.MARK_AS_READ);
-
         // Check if message comes from a quick reply
         if (fbMessage.quick_reply) {
-          let message = '';
           const quickReply = fbMessage.quick_reply;
 
+          logger.info(`Receive a Quick Reply from user [${senderId}]: ${quickReply.payload}`);
+
+          // If the quick reply comes from a customer chat should show an specific message
           if (fromCustomerChat) {
             // Set the message depending on the quick reply
-            if (quickReply.payload === 'REPORT') {
-              message = CUSTOMER_CHAT_CONGRATS_REPORT;
-            } else if (quickReply.payload === 'HELP') {
-              message = CUSTOMER_CHAT_CONGRATS_HELP;
-            }
-
-            facebook.sendMessage(senderId, message);
+            facebook.sendMessage(senderId,
+              (quickReply.payload === QUICK_REPLY_PAYLOADS.REPORT) ?
+              CUSTOMER_CHAT_CONGRATS_REPORT :
+              CUSTOMER_CHAT_CONGRATS_HELP
+            );
           } else {
-            // Set the message depending on the quick reply
-            if (quickReply.payload === 'REPORT') {
-              message = BUTTON_REPORT;
-            } else if (quickReply.payload === 'HELP') {
-              message = BUTTON_HELP;
-            }
+            const message = (quickReply.payload === QUICK_REPLY_PAYLOADS.REPORT) ? BUTTON_REPORT : BUTTON_HELP;
 
             // Save user last action
             Actions.save(senderId, quickReply.payload);
@@ -99,20 +98,30 @@ router.post('/webhook', (req, res) => {
             // Send the Quick Reply for location
             setTimeout(() => {
               facebook.quickReplyLocation(senderId, message);
-            }, 200);
+            }, 250);
           }
         } else if (fbMessage.text) {
           logger.info(`Message receive from user [${senderId}]: ${fbMessage.text}`);
 
-          if (fbMessage.text.indexOf("report") !== -1) {
+          if (fbMessage.text.toLowerCase().indexOf("report") !== -1) {
             // User message contains the text "report"
 
             // Save user last action
-            Actions.save(senderId, "REPORT");
+            Actions.save(senderId, QUICK_REPLY_PAYLOADS.REPORT);
 
             // Send the Quick Reply for location
             setTimeout(() => {
               facebook.quickReplyLocation(senderId, BUTTON_REPORT);
+            }, 200);
+          } else if (fbMessage.text.toLowerCase().indexOf("help") !== -1) {
+            // User message contains the text "help"
+
+            // Save user last action
+            Actions.save(senderId, QUICK_REPLY_PAYLOADS.HELP);
+
+            // Send the Quick Reply for location
+            setTimeout(() => {
+              facebook.quickReplyLocation(senderId, BUTTON_HELP);
             }, 200);
           } else {
             // Wait for previous message comes first
@@ -120,17 +129,14 @@ router.post('/webhook', (req, res) => {
               facebook.quickReplyTextButton(senderId, CHOOSE_TEXT, [
                 {
                   title: 'Report',
-                  payload: 'REPORT',
+                  payload: QUICK_REPLY_PAYLOADS.REPORT,
                 },
                 {
                   title: 'Help',
-                  payload: 'HELP',
+                  payload: QUICK_REPLY_PAYLOADS.HELP,
                 },
               ]);
             }, 200);
-
-            // Save the user interacted
-            Users.save(senderId);
           }
         } else if (fbMessage.attachments) {
           const attachment = fbMessage.attachments[0];
@@ -140,7 +146,7 @@ router.post('/webhook', (req, res) => {
             const location = attachment.payload;
 
             // If it is a report we save the location reported
-            if (Actions.get(senderId) === 'REPORT') {
+            if (Actions.get(senderId) === QUICK_REPLY_PAYLOADS.REPORT) {
               // Generate Static Map URL From MapQuest for Page
               const staticMapUrlForPage = MapQuest.getStaticMapUrl({
                 locations: [
@@ -174,7 +180,7 @@ router.post('/webhook', (req, res) => {
 
               facebook.sendMessage(senderId, CONGRATS_REPORT);
               // If it is a help we retrieve the locations
-            } else if (Actions.get(senderId) === 'HELP') {
+            } else if (Actions.get(senderId) === QUICK_REPLY_PAYLOADS.HELP) {
               Locations.getNearLocations({
                 lat: location.coordinates.lat,
                 long: location.coordinates.long,
@@ -182,20 +188,6 @@ router.post('/webhook', (req, res) => {
               }).then(locations => {
                 if (locations.length > 0) {
                   facebook.sendAction(senderId, facebook.available_actions.TYPING);
-
-                  /*
-                  let locationsMessage = CONGRATS_HELP;
-
-                  locations.forEach(l => {
-                    locationsMessage = locationsMessage.concat(`\n\nhttps://maps.google.com/maps?daddr=${l.lat},${l.long}`);
-                  });
-
-                  locationsMessage = locationsMessage.concat(`\n\n`)
-                  locationsMessage = locationsMessage.concat(CONGRATS_LOCATIONS)
-                  locationsMessage = locationsMessage.concat(`https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}`);
-
-                  facebook.sendMessage(senderId, `${locationsMessage}\n\n${CONGRATS_RE_TARGETING}`);
-                  */
 
                   // Generate Static Map URL From MapQuest for Bot
                   const staticMapUrlForBot = MapQuest.getStaticMapUrl({
