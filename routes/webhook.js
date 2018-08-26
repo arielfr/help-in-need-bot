@@ -10,13 +10,13 @@ const MapQuest = require('../services/MapQuest');
 
 const BUTTON_REPORT = `By sharing your location, you will be reporting a person in need close to you.`;
 const BUTTON_HELP = 'Please share your location in order to see people in need near by.';
-const CHOOSE_TEXT = 'Hi there! You can choose if you want to report the location of someone in need or just know where are the people in need around you.';
+const CHOOSE_TEXT = 'Hi there! Using my help, you can report the location of someone in need or find and help someone close to you';
 const CONGRATS_REPORT = `Thank you for taking the time to help someone in need. Would you love to continue helping? Talk to me again!`;
 const CONGRATS_HELP_NO_LOCATIONS = `There are no people in need around you. Would you love to continue helping? Talk to me again!`;
-const CONGRATS_HELP = `People in your community reported the following locations:`;
+//const CONGRATS_HELP = `People in your community reported the following locations:`;
 const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me again!`;
-const CONGRATS_LOCATIONS = `Check out all locations reported on our map here: `;
-const CUSTOMER_CHAT_CONGRATS_REPORT = `You need to do it through http://m.me/helpinneedbot`;
+const CONGRATS_LOCATIONS = `We have found people in need around this location who need help, check out the map below: `;
+const CUSTOMER_CHAT_CONGRATS_REPORT = `To report someone in need please talk to me from Facebook Messenger. You can use the following link http://m.me/helpinneedbot`;
 const CUSTOMER_CHAT_CONGRATS_HELP = `Great! Just look on the map the locations of people in need near you`;
 const REPORT_MESSAGE = (date, name) => (`Reported on: ${date.toLocaleDateString("en-US")} ${name ? `by ${name}` : ''}`);
 
@@ -203,7 +203,7 @@ router.post('/webhook', (req, res) => {
                     facebook.sendAttachment(senderId, id, facebook.valid_attachment_types.IMAGE_FILE);
 
                     setTimeout(() => {
-                      facebook.sendMessage(senderId, `To see all the locations click here: https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}\n\n${CONGRATS_RE_TARGETING}`);
+                      facebook.sendMessage(senderId, `To view all the locations click here: https://help-in-need.now.sh/?lat=${location.coordinates.lat}&long=${location.coordinates.long}\n\n${CONGRATS_RE_TARGETING}`);
                     }, 350);
                   }).catch((err) => {
                     facebook.sendAction(senderId, facebook.available_actions.END_TYPING);
