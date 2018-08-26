@@ -6,6 +6,16 @@ body {
     padding: 0px;
 }
 
+#index {
+    height: 100%;
+}
+
+#about{}
+
+.page {
+    padding: 20px 40px 0px 40px;
+}
+
 /* Set the size of the div element that contains the map */
 .box {
     display: flex;
@@ -69,6 +79,19 @@ body {
 @media only screen and (max-width: 480px) {
     .navbar {
         padding: 0px 0px;
+        height: 35px;
+    }
+
+    .navbar a {
+        padding: 10px 10px;
+        font-size: 12px;
+    }
+
+    .navbar a.logo {
+        padding-left: 45px;
+        background-size: 20px 20px;
+        background-position-y: 8px;
+        background-position-x: 16px;
     }
 }
 
