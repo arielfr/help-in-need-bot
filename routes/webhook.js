@@ -18,7 +18,7 @@ const CONGRATS_RE_TARGETING = `Would you love to continue helping? Talk to me ag
 const CONGRATS_LOCATIONS = `We have found people in need around this location who need help, check out the map below: `;
 const CUSTOMER_CHAT_CONGRATS_REPORT = `To report someone in need please talk to me from Facebook Messenger. You can use the following link http://m.me/helpinneedbot`;
 const CUSTOMER_CHAT_CONGRATS_HELP = `Great! Just look on the map the locations of people in need near you`;
-const REPORT_MESSAGE = (date, name) => (`Reported on: ${date.toLocaleDateString("en-US")} ${name ? `by ${name}` : ''}`);
+const REPORT_MESSAGE = (date, name) => (`Reported by ${name ? `by ${name}` : ''}`);
 
 /**
  * Verification Token Endpoint
