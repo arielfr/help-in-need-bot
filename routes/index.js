@@ -27,6 +27,7 @@ router.get('/', (req, res) => {
   });
 });
 
+/*
 router.get('/about', (req, res) => {
   res.send({
     developer_circles: {
@@ -46,6 +47,7 @@ router.get('/about', (req, res) => {
     }
   });
 });
+*/
 
 router.get('/expire', (req, res) => {
   Locations.expireYesterday().then(() => {

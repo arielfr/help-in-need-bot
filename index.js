@@ -22,6 +22,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(require('./routes/index'));
 app.use(require('./routes/ping'));
 app.use(require('./routes/policy'));
+app.use(require('./routes/about'));
 app.use(require('./routes/webhook'));
 
 app.use((err, req, res, next) => {
