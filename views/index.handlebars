@@ -29,6 +29,8 @@
 			}
 		);
 
+		const infowindow = new google.maps.InfoWindow();
+
 		for (var i = 0; i < locations.length; i++) {
 			var marker = new google.maps.Marker({
 				position: {
@@ -38,7 +40,6 @@
 				map: map
 			});
 
-			const infowindow = new google.maps.InfoWindow();
 			const infoWindowContent = '<div><p>Reported by ' + locations[i].user.first_name + '</p></div>';
 
 			google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow){
