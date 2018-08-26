@@ -57,7 +57,7 @@ router.post('/webhook', (req, res) => {
     logger.debug(`Message receive from page`);
 
     // Iterates over each entry - there may be multiple if batched
-    body.entry.forEach(function(entry) {
+    body.entry.forEach(function (entry) {
       // Gets the message. entry.messaging is an array, but
       // will only ever contain one message, so we get index 0
       const webhook_event = entry.messaging[0];
@@ -104,22 +104,34 @@ router.post('/webhook', (req, res) => {
         } else if (fbMessage.text) {
           logger.info(`Message receive from user [${senderId}]: ${fbMessage.text}`);
 
-          // Wait for previous message comes first
-          setTimeout(() => {
-            facebook.quickReplyTextButton(senderId, CHOOSE_TEXT, [
-              {
-                title: 'Report',
-                payload: 'REPORT',
-              },
-              {
-                title: 'Help',
-                payload: 'HELP',
-              },
-            ]);
-          }, 200);
+          if (fbMessage.text.indexOf("report") !== -1) {
+            // User message contains the text "report"
 
-          // Save the user interacted
-          Users.save(senderId);
+            // Save user last action
+            Actions.save(senderId, "REPORT");
+
+            // Send the Quick Reply for location
+            setTimeout(() => {
+              facebook.quickReplyLocation(senderId, BUTTON_REPORT);
+            }, 200);
+          } else {
+            // Wait for previous message comes first
+            setTimeout(() => {
+              facebook.quickReplyTextButton(senderId, CHOOSE_TEXT, [
+                {
+                  title: 'Report',
+                  payload: 'REPORT',
+                },
+                {
+                  title: 'Help',
+                  payload: 'HELP',
+                },
+              ]);
+            }, 200);
+
+            // Save the user interacted
+            Users.save(senderId);
+          }
         } else if (fbMessage.attachments) {
           const attachment = fbMessage.attachments[0];
 
@@ -138,7 +150,7 @@ router.post('/webhook', (req, res) => {
                   }
                 ],
               });
-              
+
               facebook.getUserById(senderId).then(data => {
                 Locations.addLocation(data, {
                   lat: location.coordinates.lat,
