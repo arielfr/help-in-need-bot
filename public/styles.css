@@ -76,6 +76,19 @@ body {
     float: right;
 }
 
+.navbar a.icon{
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.navbar a.icon.fb {
+    background-image: url(/fb_logo.png);
+    background-size: 40px;
+    background-position-y: 11px;
+    background-position-x: 0px;
+    padding: 30px 21px;
+}
+
 @media only screen and (max-width: 480px) {
     .navbar {
         padding: 0px 0px;
@@ -92,6 +105,10 @@ body {
         background-size: 20px 20px;
         background-position-y: 8px;
         background-position-x: 16px;
+    }
+
+    .navbar a.icon.fb {
+        display: none;
     }
 }
 
