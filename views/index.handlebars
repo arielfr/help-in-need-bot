@@ -19,7 +19,7 @@
 		// The map
 		var map = new google.maps.Map(
 			document.getElementById('map'), {
-				zoom: 12,
+				zoom: userLatLong ? 15 : 12,
 				center: {{#objecIsEmpty current}} {{#lengthEqual locations 0}} new google.maps.LatLng(-34.6036754, -58.3824593) {{else}} new google.maps.LatLng(locations[0].lat, locations[0].lng) {{/lengthEqual}} {{else}} new google.maps.LatLng({{current.lat}}, {{current.long}})  {{/objecIsEmpty}},
 			}
 		);
