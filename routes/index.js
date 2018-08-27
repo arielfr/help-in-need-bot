@@ -15,15 +15,21 @@ router.get('/', (req, res) => {
     const locations = resPromises[0];
     const totalLocations = resPromises[1];
 
-    res.render('index', {
+    const data = {
       gMapsKey,
-      current: {
-        lat,
-        long,
-      },
+      current: {},
       locations,
       total: totalLocations,
-    });
+    };
+
+    if (lat && long) {
+      data['current'] = {
+        lat,
+        long,
+      };
+    }
+
+    res.render('index', data);
   });
 });
 

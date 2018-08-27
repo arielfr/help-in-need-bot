@@ -17,7 +17,7 @@ module.exports = (app) => {
   });
 
   hbs.handlebars.registerHelper('objecIsEmpty', function (obj, options) {
-    if (Object.keys(obj).length > 0) {
+    if (Object.keys(obj).length === 0) {
       return options.fn(this);
     } else {
       return options.inverse(this);
