@@ -21,6 +21,10 @@ This project was made for the Community Challenge of [Facebook Developers Circle
     <img width="279" alt="captura de pantalla 2018-08-15 a la s 19 37 18" src="https://user-images.githubusercontent.com/4379982/44177165-03f11c00-a0c3-11e8-8dca-35d031f8c5c9.png">
 </kbd>
 
+## Inspiration
+
+Living a changing economy, while walking in the streets of Buenos Aires we have witnessed the homeless population increasing day by day. That's when we thought we could do something to help, and we did it, the best way we knew. We created a tool using technology that allows us to help our community in an intuitive way. This is how "Help In Need" was born.
+
 ## Regional Winner
 
 On 08-15-18 we won the third place on Latin America:
@@ -29,27 +33,27 @@ On 08-15-18 we won the third place on Latin America:
     <img width="588" alt="captura de pantalla 2018-08-15 a la s 19 40 48" src="https://user-images.githubusercontent.com/4379982/44177196-208d5400-a0c3-11e8-84a1-4c01140643d5.png">
 </kbd>
 
-## Updates since 08-15-18 to 08-30-18 (World Round)
+## Updates since regional winners announcements
 
-### Migrating from a Memory Database
+### Migrated from a in memory database
 
-We migrated our database from a Memory Base to a MongoDB. We implemented the [mLab](https://mlab.com/) online service that provide a Free MongoDB Database.
+We migrated our database from a in "memory base" to a non relational database (MongoDB). We implemented the [mLab](https://mlab.com/) online service that provide a Free MongoDB Database.
 
 - Generate Schemas
 - Creation of Script for Inserts and Deletions
 - Implement MongoDB NPM Dependency
 
-### Implementation of a Web App
+### Implemented a Web Application
 
-We created a Web Application that can show you all the locations reported from a MongoDB Database. For doing that we did the following tasks:
+We created a Web Application that allloyw us to show you all the locations reported from a MongoDB Database. For doing that we did the following tasks:
 
-- Creating an Express Application
+- Created an Express Application
 - Implemented a View Engine ([Handlebars](https://handlebarsjs.com/))
-- Google Maps API Integration
+- Implemented Google Maps API
 
 ### Static Maps on Bot
 
-To improve the help process, we change the link to Google Maps for an static image map that can show you your location and the nearest locations reported. To accomplish this we implemented:
+To improve the help process, we change the link to Google Maps for a "static image" map that can show you the shared location and the nearest locations reported. To accomplish this we implemented:
 
 - [MapQuest](https://developer.mapquest.com/)
 
@@ -59,7 +63,7 @@ To improve the help process, we change the link to Google Maps for an static ima
 
 ### Posts on Facebook Page
 
-We also implement the [FB Graphic API](https://developers.facebook.com/docs/graph-api/) to post on our Facebook Page when a user reports a location. This can trigger a notification to users following our Page.
+We also implemented the [FB Graphic API](https://developers.facebook.com/docs/graph-api/) to post on our Facebook Page when a user reports a location. The post can trigger a notification to users that follows our Page.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/44758880-4e37bb80-ab0d-11e8-9492-a26a25342034.png">
@@ -114,13 +118,13 @@ So, using our database any person or organization could use this information to 
     <img src="https://user-images.githubusercontent.com/4379982/44757803-54c33480-ab07-11e8-918a-bb4363d3d2f9.PNG" width="350">
 </kbd>
 
-We provide an Static Image generated from an integration with MapQuest](https://developer.mapquest.com/). This photo will show your location with a **red** marker. And it is going to show the 5 near locations with **violets** markers.
+We provide an Static Image generated from an integration with [MapQuest](https://developer.mapquest.com/). This photo will show your location with a **red** marker. And it is going to show the top 5 near locations with **violets** markers.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/44757801-542a9e00-ab07-11e8-8888-52d660ea16c8.JPG" width="350">
 </kbd>
 
-We are also providing a link yo our Web Page that is going to show the map in the location that you share. This will show you the nearest locations:
+We are also providing you with a link to our Web Page that is going to show the map centered with the location that you shared. This will allow you to see all of the nearest locations reported.
 
 <img src="https://user-images.githubusercontent.com/4379982/44757802-54c33480-ab07-11e8-90ff-38f213a260aa.PNG" width="350">
 
@@ -167,19 +171,16 @@ For creating this [Home Page](https://help-in-need.now.sh/) we have implemented 
 - [FB Graphic API](https://developers.facebook.com/docs/graph-api/) (Automatic posting on FB Page)
 - [Customer Chat Plugin](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/)
 
-# Technical Spoilers
+# How we built it
 
-Just read the code, don't be lazy. Just kidding. This application was done using the next technologies:
-
-- NodeJS
-- MongoDB: Save Locations
-- Google Maps API: Show map on Page
-- MapQuest: Image from maps on Bot and on Facebook Page
-- Express
-
-This are the main packages that we are using:
+With a nail and a hammer... just kidding!. This application was created using **NodeJS**. These are the main packages that we are using:
 
 - Facebook API: [FB](https://www.npmjs.com/package/fb).
+- NodeJS
+- MongoDB
+- Google Maps
+- MapQuest
+- Express
 
 ## Install
 
