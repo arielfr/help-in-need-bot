@@ -67,7 +67,7 @@ We also implemented the [FB Graphic API](https://developers.facebook.com/docs/gr
     <img src="https://user-images.githubusercontent.com/4379982/44758880-4e37bb80-ab0d-11e8-9492-a26a25342034.png">
 </kbd>
 
-## How
+## How Help In Need Bot works?
 
 This bot will empower members of the community by fostering help for each other. If you want to help someone, all you have to do is open Facebook Messenger and search for "Help In Need". Once a conversation is started, you will be able to choose:
 
