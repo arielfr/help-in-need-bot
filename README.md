@@ -136,7 +136,17 @@ We also provide a text parser that can identify keywords to detect if you want t
 
 We also have a [Home Page](https://help-in-need.now.sh/). In this homepage you can visualize all the locations that have been reported using the Help In Need Bot.
 
-<img width="1440" alt="captura de pantalla 2018-08-28 a la s 20 56 10" src="https://user-images.githubusercontent.com/4379982/44757348-f8f7ac00-ab04-11e8-83bc-bc6b3a29ec47.png">
+<kbd>
+    <img width="1440" alt="captura de pantalla 2018-08-28 a la s 20 56 10" src="https://user-images.githubusercontent.com/4379982/44757348-f8f7ac00-ab04-11e8-83bc-bc6b3a29ec47.png">
+</kbd>
+
+## Current Reports
+
+We count with a World Report Count on the right side of the page:
+
+<kbd>
+    <img width="246" alt="captura de pantalla 2018-08-28 a la s 22 00 04" src="https://user-images.githubusercontent.com/4379982/44758980-bf776e80-ab0d-11e8-9afa-3a96c0b8024f.png">
+</kbd>
 
 ## Customer Chat Plugin
 
