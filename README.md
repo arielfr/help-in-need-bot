@@ -33,11 +33,11 @@ On 08-15-18 we won the third place on Latin America:
     <img width="588" alt="captura de pantalla 2018-08-15 a la s 19 40 48" src="https://user-images.githubusercontent.com/4379982/44177196-208d5400-a0c3-11e8-84a1-4c01140643d5.png">
 </kbd>
 
-## Updates since regional winners announcements
+## Updates since the regional winners announcement
 
 ### Migrated from a in memory database
 
-We migrated our database from a in "memory base" to a non relational database (MongoDB). We implemented the [mLab](https://mlab.com/) online service that provide a Free MongoDB Database.
+We migrated our database from a in "memory base" to a non.relational database (MongoDB). We implemented the [mLab](https://mlab.com/) online service that provide a Free MongoDB Database.
 
 - Generate Schemas
 - Creation of Script for Inserts and Deletions
@@ -45,7 +45,7 @@ We migrated our database from a in "memory base" to a non relational database (M
 
 ### Implemented a Web Application
 
-We created a Web Application that allloyw us to show you all the locations reported from a MongoDB Database. For doing that we did the following tasks:
+We created a Web Application that allows to show all the locations reported from a MongoDB Database. For doing that we did the following tasks:
 
 - Created an Express Application
 - Implemented a View Engine ([Handlebars](https://handlebarsjs.com/))
@@ -53,9 +53,7 @@ We created a Web Application that allloyw us to show you all the locations repor
 
 ### Static Maps on Bot
 
-To improve the help process, we change the link to Google Maps for a "static image" map that can show you the shared location and the nearest locations reported. To accomplish this we implemented:
-
-- [MapQuest](https://developer.mapquest.com/)
+To improve the helping process, we changed Google Maps links for a "static image" map. In this way we can show some locations near by the location reported. To accomplish that we chose [MapQuest](https://developer.mapquest.com/) (basically because it is free, and Gmap not)
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/44757801-542a9e00-ab07-11e8-8888-52d660ea16c8.JPG" width="350">
@@ -63,7 +61,7 @@ To improve the help process, we change the link to Google Maps for a "static ima
 
 ### Posts on Facebook Page
 
-We also implemented the [FB Graphic API](https://developers.facebook.com/docs/graph-api/) to post on our Facebook Page when a user reports a location. The post can trigger a notification to users that follows our Page.
+We also implemented the [FB Graphic API](https://developers.facebook.com/docs/graph-api/) to post on our Facebook Page when a user report a location. Hence, every user who follow our page will see reporting updates.
 
 <kbd>
     <img src="https://user-images.githubusercontent.com/4379982/44758880-4e37bb80-ab0d-11e8-9492-a26a25342034.png">
