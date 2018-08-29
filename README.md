@@ -33,7 +33,7 @@ On 08-15-18 we won the third place on Latin America:
     <img width="588" alt="captura de pantalla 2018-08-15 a la s 19 40 48" src="https://user-images.githubusercontent.com/4379982/44177196-208d5400-a0c3-11e8-84a1-4c01140643d5.png">
 </kbd>
 
-## Updates since the regional winners announcement
+## Updates since the regional winners were announced
 
 ### Migrated from a in memory database
 
