@@ -24,7 +24,7 @@ On 08-15-18 we won the third place on Latin America:
 This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. 
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43087314-eaa224a6-8e75-11e8-869d-4d9c421da783.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757808-555bcb00-ab07-11e8-86d3-a7c30919210c.PNG" width="350">
 </kbd>
 
 ## How
@@ -35,7 +35,7 @@ This bot will empower members of the community by fostering help for each other.
 - Help someone close to you
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43087329-f7b5c544-8e75-11e8-86ef-241952ed5358.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757804-54c33480-ab07-11e8-82bf-146c9fe13ee7.PNG" width="350">
 </kbd>
 
 ### Report
@@ -43,19 +43,19 @@ This bot will empower members of the community by fostering help for each other.
 When the options appear you will be able to choose `Report`. Once you choose this option, you will see a button (`Send Location`) to share the location of someone in need.
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43087338-03332c04-8e76-11e8-89d6-f38192143598.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757807-555bcb00-ab07-11e8-8e91-0424fc27636f.PNG" width="350">
 </kbd>
 
 If you are close to the person, just share your current location. You can search for the locaction by address or drag a waypoint on map.
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43108497-7fbb427e-8eb8-11e8-94dc-7fd037c87442.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757800-542a9e00-ab07-11e8-8aba-d4c73c55edf9.PNG" width="350">
 </kbd>
 
 That's it! Now other people or organizations can find and assist them!
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43108758-d12ed4d0-8eb9-11e8-8d15-0cb5415c85a7.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757805-54c33480-ab07-11e8-8e03-d8ee74ce2977.PNG" width="350">
 </kbd>
 
 ### Help
@@ -63,25 +63,63 @@ That's it! Now other people or organizations can find and assist them!
 You can also search for people in need around you so that you can provide help. When the options appear, you choose the option `Help`. 
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43108470-5facca70-8eb8-11e8-99e1-20f3360b3cb2.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757806-555bcb00-ab07-11e8-9b39-d0df5cffe5f6.PNG" width="350">
 </kbd>
 
 So, using our database any person or organization could use this information to help someone in need.
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43108499-8536bf3a-8eb8-11e8-891a-b1c6010392c3.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757799-542a9e00-ab07-11e8-85d6-ee648249ca9f.PNG" width="350">
 </kbd>
-<kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43108759-d242a3ec-8eb9-11e8-8acd-012f2bf55d6d.JPG" width="350">
-</kbd>
-
-We provide a waypoint on a map on google maps
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/43108503-8bead186-8eb8-11e8-9f31-059b9a1f0a4c.JPG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757803-54c33480-ab07-11e8-918a-bb4363d3d2f9.PNG" width="350">
 </kbd>
 
-## Technical Spoilers
+We provide an Static Image generated from an integration with MapQuest](https://developer.mapquest.com/). This photo will show your location with a **red** marker. And it is going to show the 5 near locations with **violets** markers.
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/44757801-542a9e00-ab07-11e8-8888-52d660ea16c8.JPG" width="350">
+</kbd>
+
+We are also providing a link yo our Web Page that is going to show the map in the location that you share. This will show you the nearest locations:
+
+<img src="https://user-images.githubusercontent.com/4379982/44757802-54c33480-ab07-11e8-90ff-38f213a260aa.PNG" width="350">
+
+### Text Intelligence (Update 08-30-2018)
+
+We also provide a text parser that can identify keywords to detect if you want to report or help:
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/44757798-542a9e00-ab07-11e8-9bf6-15ce3fd0d472.PNG" width="350">
+</kbd>
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/44757797-53920780-ab07-11e8-92bf-46ff02c28e8a.PNG" width="350">
+</kbd>
+
+# Home Page (Update 08-30-2018)
+
+We also have a [Home Page](https://help-in-need.now.sh/). In this homepage you can visualize all the locations that have been reported using the Help In Need Bot.
+
+<img width="1440" alt="captura de pantalla 2018-08-28 a la s 20 56 10" src="https://user-images.githubusercontent.com/4379982/44757348-f8f7ac00-ab04-11e8-83bc-bc6b3a29ec47.png">
+
+## Customer Chat Plugin
+
+We also count with an implementation of the [Customer Chat Plugin](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/).
+
+<img width="396" alt="captura de pantalla 2018-08-28 a la s 20 58 40" src="https://user-images.githubusercontent.com/4379982/44757387-2a707780-ab05-11e8-83b2-caca9cdbd3e8.png">
+
+## Integrations
+
+For creating this [Home Page](https://help-in-need.now.sh/) we have implemented the next technologies:
+
+- [Google Maps API](https://cloud.google.com/maps-platform/?hl=es) (Map on HomePage)
+- [MapQuest](https://developer.mapquest.com/) (Static Maps on Bot)
+- [FB Graphic API](https://developers.facebook.com/docs/graph-api/) (Automatic posting on FB Page)
+- [Customer Chat Plugin](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/)
+
+# Technical Spoilers
 
 Just read the code, don't be lazy. Just kidding. This application was done using the next technologies:
 
