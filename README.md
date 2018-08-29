@@ -5,7 +5,13 @@ Say hello to the first humanitarian **bot**... This bot will allow to empower, h
 **Warning**
 > Can't get the permissions necessary for making it public, Facebook asks for a Business verification. This is for the Hackaton, not for comercial use.
 
-We are also using the [Customer Chat Plugin (Beta)](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/) for our landing page.
+# Description
+
+This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. 
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/44757808-555bcb00-ab07-11e8-86d3-a7c30919210c.PNG" width="350">
+</kbd>
 
 # Developers Circles
 
@@ -19,12 +25,40 @@ On 08-15-18 we won the third place on Latin America:
 
 <img width="588" alt="captura de pantalla 2018-08-15 a la s 19 40 48" src="https://user-images.githubusercontent.com/4379982/44177196-208d5400-a0c3-11e8-84a1-4c01140643d5.png">
 
-# Description
+## Updates since 08-15-18 to 08-30-18 (World Round)
 
-This is the source-code for a `Facebook Messenger Chat Bot` that is going to empower, help and bring communities together. 
+### Migrating from a Memory Database
+
+We migrated our database from a Memory Base to a MongoDB. We implemented the [mLab](https://mlab.com/) online service that provide a Free MongoDB Database.
+
+- Generate Schemas
+- Creation of Script for Inserts and Deletions
+- Implement MongoDB NPM Dependency
+
+### Implementation of a Web App
+
+We created a Web Application that can show you all the locations reported from a MongoDB Database. For doing that we did the following tasks:
+
+- Creating an Express Application
+- Implemented a View Engine ([Handlebars](https://handlebarsjs.com/))
+- Google Maps API Integration
+
+### Static Maps on Bot
+
+To improve the help process, we change the link to Google Maps for an static image map that can show you your location and the nearest locations reported. To accomplish this we implemented:
+
+- [MapQuest](https://developer.mapquest.com/)
 
 <kbd>
-    <img src="https://user-images.githubusercontent.com/4379982/44757808-555bcb00-ab07-11e8-86d3-a7c30919210c.PNG" width="350">
+    <img src="https://user-images.githubusercontent.com/4379982/44757801-542a9e00-ab07-11e8-8888-52d660ea16c8.JPG" width="350">
+</kbd>
+
+### Posts on Facebook Page
+
+We also implement the [FB Graphic API](https://developers.facebook.com/docs/graph-api/) to post on our Facebook Page when a user reports a location. This can trigger a notification to users following our Page.
+
+<kbd>
+    <img src="https://user-images.githubusercontent.com/4379982/44758880-4e37bb80-ab0d-11e8-9492-a26a25342034.png">
 </kbd>
 
 ## How
@@ -86,7 +120,7 @@ We are also providing a link yo our Web Page that is going to show the map in th
 
 <img src="https://user-images.githubusercontent.com/4379982/44757802-54c33480-ab07-11e8-90ff-38f213a260aa.PNG" width="350">
 
-### Text Intelligence (Update 08-30-2018)
+### Text Intelligence
 
 We also provide a text parser that can identify keywords to detect if you want to report or help:
 
@@ -98,7 +132,7 @@ We also provide a text parser that can identify keywords to detect if you want t
     <img src="https://user-images.githubusercontent.com/4379982/44757797-53920780-ab07-11e8-92bf-46ff02c28e8a.PNG" width="350">
 </kbd>
 
-# Home Page (Update 08-30-2018)
+# Home Page
 
 We also have a [Home Page](https://help-in-need.now.sh/). In this homepage you can visualize all the locations that have been reported using the Help In Need Bot.
 
